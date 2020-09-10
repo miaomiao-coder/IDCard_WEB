@@ -64,7 +64,6 @@ export default {
         } else {
           // Temp set(will be used if only has one showing child)
           this.onlyOneChild = item
-					console.log("onlyOneChild", this.onlyOneChild);
           return true
         }
       })
@@ -83,9 +82,6 @@ export default {
       return false
     },
     resolvePath(routePath) {
-				console.log("routePath", routePath);
-				console.log("basePath",this.basePath);
-				console.log("two", path.resolve(this.basePath, routePath));
       if (isExternal(routePath)) {
         return routePath
       }
