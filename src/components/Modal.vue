@@ -6,7 +6,7 @@
 				<img class="modal-icon" src="../icons/warn_icon.png" />
 				<label>{{info.title}}</label>
 			</div>
-			<Form  ref="fromInfo"
+			<el-form  ref="fromInfo"
                   :model="fromInfo"
 				  :rules="ruleInline">
 				<div class="modal-body uppwd">
@@ -16,13 +16,21 @@
 							<label>张三</label>
 						</div>
 					</div>
-					<div class="column-item">
+					<el-form-item prop="newname">
+					<div class="column-item" >
 						<label class="left-tip">修改用户名:</label>
 						<div class="right-input">
-							<input placeholder="请输入修改后的用户名" v-model="fromInfo.newname" />
+							<el-input
+							 ref="newname"
+                v-model="fromInfo.newname" 
+                placeholder="请输入修改后的用户名"
+                name="newname"
+                type="text"
+                auto-complete="on"/>
 							<img src="../icons/user_small.png" />
 						</div>
 					</div>
+					</el-form-item>
 				</div>
 				<div class="modal-footer">
 					<!-- <img class="btn-close" src="../icons/cancel_icon.png" @click.stop="close" />
@@ -31,13 +39,14 @@
 					 <Button type="primary" class="btn-close"></Button>
 					<Button type="primary" @click.stop="confirm('fromInfo')" class="btn-confirm"></Button>
 				</div>
-			</Form>
+			</el-form>
 		</div>
 
 	</div>
 </template>
 
 <script>
+	import { validUsername } from '@/utils/validate'
 	export default {
 		name: 'Modal',
 		props: {
@@ -56,6 +65,13 @@
 			}
 		},
 		data() {
+			const validateUsername = (rule, value, callback) => {
+			  if (!validUsername(value)) {
+			    callback(new Error('请输入正确的用户名'))
+			  } else {
+			    callback()
+			  }
+			}
 			return {
 				fromInfo: {
 					id: this.info.id,
@@ -64,7 +80,7 @@
 				ruleInline: {
 					newname: [{
 						required: true,
-						message: "用户名不能为空",
+						validator: validateUsername,
 						trigger: "blur"
 					}]
 				}
@@ -228,5 +244,9 @@
 		width: 22px;
 		top: 5px;
 		left: -285px;
+	}
+	.el-form-item__error {
+	    font-size: 14px;
+	    left: -15px;
 	}
 </style>
