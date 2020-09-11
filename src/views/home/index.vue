@@ -9,8 +9,8 @@
 
 
 <script>
-	import Confirm from '../../components/Confirm.vue';
-	import Modal from '../../components/Modal.vue';
+	import Confirm from '../../components/Modal/Confirm.vue';
+	import Modal from '../../components/Modal/UpdateUserName.vue';
 	export default {
 		name: 'Home',
 		data() {

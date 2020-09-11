@@ -2,14 +2,14 @@
 	<div class="cmodal-backdrop" @click.self="closeSelf">
 		<div class="modal">
 			<div class="modal-header">
-				<img src="../icons/warn_icon.png" />
+				<img src="../../icons/warn_icon.png" />
 				<label>{{info.title}}</label>
 			</div>
 			<div class="modal-body">
 				<label>{{info.desp}}</label>
 			</div>
 			<div class="modal-footer">
-				<img class="btn-close" src="../icons/cancel_icon.png" @click.stop="closeSelf" />
+				<img class="btn-close" src="../../icons/cancel_icon.png" @click.stop="closeSelf" />
 				<img class="btn-confirm" v-bind:src="info.okimg" @click.stop="confirm" />
 			</div>
 		</div>

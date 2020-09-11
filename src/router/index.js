@@ -46,6 +46,20 @@ export const constantRoutes = [
     path: '/',
     component: Layout,
     // redirect: '/base/home',
+    // meta: { activeMenu: '/home' },
+    // component: () => import('@/views/dashboard/index'),
+    // meta: { title: 'test', icon: 'dashboard', activeMenu: '/home' },
+    children: [{
+      path: 'dashboard',
+      name: 'Dashboard',
+      component: () => import('@/views/dashboard/index'),
+      meta: { title: 'test', icon: 'dashboard', activeMenu: '/dashboard' }
+    }]
+  },
+  {
+    path: '/home',
+    component: Layout,
+    redirect: '/dashboard',
     children: [{
       path: 'home',
       name: 'home',
@@ -56,11 +70,11 @@ export const constantRoutes = [
   {
     path: '/dashboard',
     component: Layout,
-    redirect: '/',
+    redirect: '/home',
     children: [{
       path: 'dashboard',
       name: 'Dashboard',
-      component: () => import('@/views/dashboard/index'),
+      component: () => import('@/views/form/index'),
       meta: { title: '库存数据', icon: 'el-icon-s-data' }
     }]
   },
@@ -78,13 +92,13 @@ export const constantRoutes = [
     ]
   },
   {
-    path: '/form',
+    path: '/statu',
     component: Layout,
     redirect: '/table',
     children: [
       {
-        path: 'form',
-        name: 'Form',
+        path: 'statu',
+        name: 'statu',
         component: () => import('@/views/form/index'),
         meta: { title: '设备状态', icon: 'el-icon-monitor' }
       }
@@ -170,16 +184,16 @@ export const constantRoutes = [
   //   ]
   // },
 
-  {
-    path: 'external-link',
-    component: Layout,
-    children: [
-      {
-        path: 'https://panjiachen.github.io/vue-element-admin-site/#/',
-        meta: { title: '链接', icon: 'link' }
-      }
-    ]
-  },
+  // {
+  //   path: 'external-link',
+  //   component: Layout,
+  //   children: [
+  //     {
+  //       path: 'https://panjiachen.github.io/vue-element-admin-site/#/',
+  //       meta: { title: '链接', icon: 'link' }
+  //     }
+  //   ]
+  // },
 
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }

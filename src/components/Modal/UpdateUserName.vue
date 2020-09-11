@@ -2,13 +2,11 @@
 	<div class="modal-backdrop" @click.self="close">
 		<div class="modal">
 			<div class="modal-header">
-				<img class="modal-close" src="../icons/close_icon.png" @click.stop="close" />
-				<img class="modal-icon" src="../icons/warn_icon.png" />
+				<img class="modal-close" src="../../icons/close_icon.png" @click.stop="close" />
+				<img class="modal-icon" src="../../icons/warn_icon.png" />
 				<label>{{info.title}}</label>
 			</div>
-			<Form  ref="fromInfo"
-                  :model="fromInfo"
-				  :rules="ruleInline">
+			<el-form ref="fromInfo" :model="fromInfo" :rules="ruleInline">
 				<div class="modal-body uppwd">
 					<div class="column-item">
 						<label class="left-tip"></label>
@@ -16,28 +14,49 @@
 							<label>张三</label>
 						</div>
 					</div>
+
+
 					<div class="column-item">
 						<label class="left-tip">修改用户名:</label>
-						<div class="right-input">
-							<input placeholder="请输入修改后的用户名" v-model="fromInfo.newname" />
-							<img src="../icons/user_small.png" />
+					<!-- 	<el-form-item prop="newname">
+							<span class="svg-container">
+								<svg-icon icon-class="user" />
+							</span>
+							<el-input ref="newname" v-model="fromInfo.username" placeholder="请输入用户名" name="newname" type="text" tabindex="1"
+							 auto-complete="on" />
+						</el-form-item> -->
+						<el-form-item prop="newname">
+							<div class="right-input">
+							<el-input
+							 ref="newname"
+                v-model="fromInfo.newname" 
+                placeholder="请输入修改后的用户名"
+                name="newname"
+                type="text"
+                auto-complete="on"/>
+							<img src="../../icons/user_small.png" />
 						</div>
+						</el-form-item>
 					</div>
 				</div>
 				<div class="modal-footer">
 					<!-- <img class="btn-close" src="../icons/cancel_icon.png" @click.stop="close" />
 					<img class="btn-confirm" v-bind:src="info.okimg" @click.stop="confirm('fromInfo')" /> -->
-					
-					 <Button type="primary" class="btn-close"></Button>
-					<Button type="primary" @click.stop="confirm('fromInfo')" class="btn-confirm"></Button>
+
+					<el-button type="primary" class="btn-close" @click.stop="close"></el-button>
+					<!-- <Button type="primary" @click.stop="confirm('fromInfo')" class="btn-confirm"></Button> -->
+					<el-button class="btn-confirm"  @click.native.prevent="confirm('fromInfo')"></el-button>
 				</div>
-			</Form>
+			</el-form>
 		</div>
 
 	</div>
 </template>
 
 <script>
+	import {
+		validUsername
+	} from '@/utils/validate'
 	export default {
 		name: 'Modal',
 		props: {
@@ -51,11 +70,18 @@
 					default: '修改密码'
 				},
 				okimg: {
-					default: require('../icons/ok_icon.png')
+					default: require('../../icons/ok_icon.png')
 				},
 			}
 		},
 		data() {
+			const validateUsername = (rule, value, callback) => {
+				if (!validUsername(value)) {
+					callback(new Error('请输入正确的用户名'))
+				} else {
+					callback()
+				}
+			}
 			return {
 				fromInfo: {
 					id: this.info.id,
@@ -64,7 +90,7 @@
 				ruleInline: {
 					newname: [{
 						required: true,
-						message: "用户名不能为空",
+						validator: validateUsername,
 						trigger: "blur"
 					}]
 				}
@@ -75,14 +101,14 @@
 				this.$emit("closemodal");
 			},
 			confirm(name) {
-				console.log("name",name);
 				this.$refs[name].validate(valid => {
 					if (valid) {
 						console.log('验证成功');
 						this.$refs.fromInfo.resetFields(); //提交后清空表单信息
 					} else {
 						console.log('验证失败');
-						this.$refs.fromInfo.resetFields(); //提交后清空表单信息
+						// this.$refs.fromInfo.resetFields(); //提交后清空表单信息
+						return false;
 					}
 				});
 			}
@@ -120,7 +146,8 @@
 		height: 88px;
 		justify-content: flex-start;
 		display: flex;
-		background: url(../icons/top_bg.png) no-repeat;
+		/* background: url(../icons/top_bg.png) no-repeat; */
+		background-color: rgba(83, 162, 255, 1);
 		align-items: center;
 	}
 
@@ -169,14 +196,14 @@
 		border: none;
 		cursor: pointer;
 	}
-	.modal-backdrop .btn-close
-	{
-		background: url(../icons/cancel_icon.png) no-repeat;
+
+	.modal-backdrop .btn-close {
+		background: url(../../icons/cancel_icon.png) no-repeat;
 		background-size: cover;
 	}
-	.modal-backdrop .btn-confirm
-	{
-		background: url(../icons/ok_icon.png) no-repeat;
+
+	.modal-backdrop .btn-confirm {
+		background: url(../../icons/ok_icon.png) no-repeat;
 		background-size: cover;
 	}
 
@@ -226,7 +253,79 @@
 		position: relative;
 		height: 24px;
 		width: 22px;
-		top: 5px;
-		left: -285px;
+		/* top: 5px;
+		left: -285px; */
+		top: -32px;
+		left: 13px;
 	}
+
+.el-form-item__content{
+  line-height: 0;
+}
+.el-checkbox__input.is-checked+.el-checkbox__label {
+    color: #606266;
+}
+
+.el-form-item__error {
+    font-size: 14px;
+    left: 0px;
+}
 </style>
+// <style lang="scss" scoped>
+// $bg:#53A2FF;
+// $dark_gray:#889aa4;
+// $light_gray:#eee;
+
+// .modal {
+//   .input-container{
+//     width: 100%;
+//     height: 585px;
+//     background: url('../../assets/imglogin/box.png') no-repeat left top;
+//     background-size: 100% 100%;
+    
+//     .inputBox{
+//       padding: 48px 0 0 223px;
+//     }
+//   }
+
+//   .svg-container {
+//     color:#499AEF;
+//     vertical-align: middle;
+//     height: 24px;
+//     display: inline-block;
+//     .svg-icon{
+//       width: 20px;
+//       height: 24px;
+//     }
+//   }
+//     .el-form-item {
+//       border: 1px solid rgba(255, 255, 255, 0.1);
+//       background: #fff;
+//       color: #454545;
+//       width: 320px;
+//       padding: 0 15px;
+//     }
+//     .el-input {
+//       display: inline-block;
+//       height: 41px;
+//       width: calc(100% - 22px);
+  
+//       input {
+//         background: transparent;
+//         border: 0px;
+//         // -webkit-appearance: none;
+//         border-radius: 0px;
+//         padding: 0 5px 0 15px;
+//         height: 41px;
+//         caret-color: #000;
+  
+//         // &:-webkit-autofill {
+//         //   box-shadow: 0 0 0px 1000px $bg inset !important;
+//         //   -webkit-text-fill-color: $cursor !important;
+//         // }
+//       }
+//     }
+//   }
+//   </style>
+
+
