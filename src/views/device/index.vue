@@ -33,15 +33,24 @@
 
 	.page span {
 		align-items: center;
+		
+		font-size: 24px;
+		font-family: Source Han Sans SC;
+		font-weight: bold;
+		line-height: 36px;
+		color: #1890FF;
+		opacity: 1;
 	}
 
 	.img-status {
 		width: 32px;
 		height: 32px;
+		margin-left: 40px;
 	}
 
 	.img-btn {
 		width: 64px;
 		height: 64px;
+		margin-left: 40px;
 	}
 </style>

@@ -10,7 +10,8 @@
   .sidebar-container {
     transition: width 0.28s;
     width: $sideBarWidth !important;
-    background-color: $menuBg;
+    // background-color: $menuBg;
+    background-color: #9AD5FF;
     height: 100%;
     position: fixed;
     font-size: 0px;
@@ -54,7 +55,9 @@
     }
 
     .svg-icon {
-      margin-right: 16px;
+      // margin-right: 16px;
+      display: block;
+      margin: 0 auto 5px;
     }
 
     .sub-el-icon {
@@ -105,8 +108,8 @@
       position: relative;
 
       .el-tooltip {
-        padding: 0 !important;
-
+        // padding: 0 !important;
+        padding: 42px 0 0 !important;
         .svg-icon {
           margin-left: 20px;
         }
@@ -223,4 +226,22 @@
       border-radius: 20px;
     }
   }
+}
+
+.el-menu-item{
+  height: 100px !important;
+  line-height: normal;
+  text-align: center;
+  color: #0671eb !important;
+  background-color: transparent !important;
+  padding-top: 30px ;
+}
+.el-menu-item.is-active{
+  color: #fff !important;
+  background-color: #53A2FF !important;
+}
+
+.sub-el-icon{
+  display: block !important;;
+  margin: 0 auto 5px !important;;
 }
