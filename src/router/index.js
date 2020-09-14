@@ -54,6 +54,17 @@ export const constantRoutes = [
     }]
   },
   {
+    path: '/',
+    component: Layout,
+    redirect: '/device',
+    children: [{
+      path: 'device',
+      name: 'device',
+      component: () => import('@/views/device/index'),
+      meta: { title: '设备', icon: 'dashboard' }
+    }]
+  },
+  {
     path: '/test',
     component: Layout,
     redirect: '/test/dashboard',
