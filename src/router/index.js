@@ -45,21 +45,17 @@ export const constantRoutes = [
   {
     path: '/',
     component: Layout,
-    // redirect: '/base/home',
-    // meta: { activeMenu: '/home' },
-    // component: () => import('@/views/dashboard/index'),
-    // meta: { title: 'test', icon: 'dashboard', activeMenu: '/home' },
+    redirect: '/dashboard',
     children: [{
       path: 'dashboard',
       name: 'Dashboard',
       component: () => import('@/views/dashboard/index'),
-      meta: { title: 'test', icon: 'dashboard', activeMenu: '/dashboard' }
+      meta: { title: '测试', icon: 'dashboard', activeMenu: '/dashboard' }
     }]
   },
   {
     path: '/home',
     component: Layout,
-    redirect: '/dashboard',
     children: [{
       path: 'home',
       name: 'home',
@@ -68,25 +64,23 @@ export const constantRoutes = [
     }]
   },
   {
-    path: '/dashboard',
+    path: '/stockdata',
     component: Layout,
-    redirect: '/home',
     children: [{
-      path: 'dashboard',
-      name: 'Dashboard',
-      component: () => import('@/views/form/index'),
+      path: 'stockdata',
+      name: 'stockdata',
+      component: () => import('@/views/stockData/stockdata'),
       meta: { title: '库存数据', icon: 'el-icon-s-data' }
     }]
   },
   {
     path: '/table',
     component: Layout,
-    redirect: '/dashboard',
     children: [
       {
         path: 'table',
         name: 'Table',
-        component: () => import('@/views/table/index'),
+        component: () => import('@/views/getcardRecord/getcardrecord'),
         meta: { title: '取证记录', icon: 'el-icon-edit-outline' }
       }
     ]
@@ -94,7 +88,6 @@ export const constantRoutes = [
   {
     path: '/statu',
     component: Layout,
-    redirect: '/table',
     children: [
       {
         path: 'statu',

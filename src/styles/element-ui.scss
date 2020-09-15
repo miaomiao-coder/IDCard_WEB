@@ -50,3 +50,44 @@
 .el-range-separator {
   box-sizing: content-box;
 }
+
+
+
+
+
+// 全局修改样式
+// 取证记录
+.oldcard{
+    .el-checkbox__inner{
+      width: 18px !important;
+      height: 18px !important;
+    }
+    .el-checkbox__inner::after{
+      left: 6px !important;
+      top: 3px !important;
+    }
+  }
+
+// 库存数据
+  .btnList{
+    margin:20px 0 10px;
+    .el-button{
+      padding: 0;
+        img{
+            width: auto !important;
+            height:40px !important;
+        }
+    }
+}
+.operation{
+  img{
+      height: 20px;
+      margin: 0 5px;
+      display: inline-block;
+    vertical-align: middle;
+  }
+  span{
+      color: #409EFF;
+      font-size: 12px;
+  }
+}
