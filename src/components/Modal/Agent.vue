@@ -3,35 +3,40 @@
 		<div class="modal">
 			<div class="modal-header">
 				<img class="modal-close" src="../../icons/close_icon.png" @click.stop="close" />
-				<img class="modal-icon" src="../../icons/lock_icon.png" />
-				<label>修改密码</label>
+				<img class="modal-icon" src="../../icons/agent_icon.png" />
+				<label>指定代领人</label>
 			</div>
 			<el-form ref="fromInfo" :model="fromInfo" :rules="ruleInline">
 				<div class="modal-body uppwd">
 					<div class="column-item pwd">
-						<label class="left-tip">原密码:</label>
-						<el-form-item prop="oldpwd">
+						<label class="left-tip">代领人姓名:</label>
+						<el-form-item prop="agentName">
 							<div class="right-input">
-								<el-input ref="oldpwd" v-model="fromInfo.oldpwd" placeholder="请输入原密码" name="oldpwd" type="password" auto-complete="on" />
-								<img class="rightimg" src="../../icons/clearinput_icon.png" @click="clear('oldpwd')"/>
+								<el-input ref="agentName" v-model="fromInfo.agentName" placeholder="请输入代领人姓名" name="agentName" type="text" auto-complete="on" />
 							</div>
 						</el-form-item>
 					</div>
 					<div class="column-item pwd">
-						<label class="left-tip">新密码:</label>
-						<el-form-item prop="newpwd">
+						<label class="left-tip">与持证人关系:</label>
+						<el-form-item prop="agentRelation">
 							<div class="right-input">
-								<el-input ref="newpwd" v-model="fromInfo.newpwd" placeholder="请输入新密码" name="newpwd" type="password" auto-complete="on" />
-								<img class="rightimg" src="../../icons/clearinput_icon.png"  @click="clear('newpwd')"/>
+								<el-input ref="agentRelation" v-model="fromInfo.agentRelation" placeholder="请输入与持证人关系" name="agentRelation" type="text" auto-complete="on" />
 							</div>
 						</el-form-item>
 					</div>
 					<div class="column-item pwd">
-						<label class="left-tip">确认新密码:</label>
-						<el-form-item prop="doublepwd">
+						<label class="left-tip">代领人身份证号:</label>
+						<el-form-item prop="agentCard">
 							<div class="right-input">
-								<el-input ref="doublepwd" v-model="fromInfo.doublepwd" placeholder="请确认新密码" name="doublepwd" type="password" auto-complete="on" />
-								<img class="rightimg" src="../../icons/clearinput_icon.png"  @click="clear('doublepwd')"/>
+								<el-input ref="agentCard" v-model="fromInfo.agentCard" placeholder="请输入代领人身份证号" name="agentCard" type="text" auto-complete="on" />
+							</div>
+						</el-form-item>
+					</div>
+					<div class="column-item pwd">
+						<label class="left-tip">代领人联系方式:</label>
+						<el-form-item prop="agentPhone">
+							<div class="right-input">
+								<el-input ref="agentPhone" v-model="fromInfo.agentPhone" placeholder="请输入代领人联系方式" name="agentPhone" type="text" auto-complete="on" />
 							</div>
 						</el-form-item>
 					</div>
@@ -51,9 +56,9 @@
 </template>
 
 <script>
-	import {validUsername,validPassword} from '@/utils/validate'
+	import {validNum,validPhone,validIdCard} from '@/utils/validate'
 	export default {
-		name: 'UpdatePwd',
+		name: 'Agent',
 		props: {
 			info: {
 				id: {
@@ -66,27 +71,32 @@
 			}
 		},
 		data() {
-			const validateOldPwd = (rule, value, callback) => {
-				if (value.length<3||value.length>16) {
-					callback(new Error('原密码错误：必须3-16位'))
+			const validateName = (rule, value, callback) => {
+				console.log(value.length);
+				if (value.length<1||value.length>25) {
+					callback(new Error('代领人错误：必须1-25位'))
 				} else {
 					callback()
 				}
 			}
-			const validateNewPwd = (rule, value, callback) => {
+			const validateRelation = (rule, value, callback) => {
+				if (value.length<1||value.length>25) {
+					callback(new Error('与代领人关系错误：必须1-25位'))
+				} else {
+					callback()
+				}
+			}
+			const validateCard = (rule, value, callback) => {
 				
-				this.fromInfo.doublepwd = ""
-				if (value.length<3||value.length>16) {
-					callback(new Error('密码错误：必须3-16位'))
+				if (!validIdCard(value)) {
+					callback(new Error('身份证号错误：必须15/18数字或者最后一位为X字符'))
 				} else {
 					callback()
 				}
 			}
-			const validateDoublePwd = (rule, value, callback) => {
-				if (value.length<3||value.length>16) {
-					callback(new Error('密码错误：必须3-16位'))
-				} else if (value != this.fromInfo.newpwd) {
-					callback(new Error('与新输入的密码不匹配'))
+			const validatePhone = (rule, value, callback) => {
+				if (!validPhone(value)) {
+					callback(new Error('联系方式错误：必须11位数字'))
 				} else {
 					callback()
 				}
@@ -94,28 +104,31 @@
 			return {
 				fromInfo: {
 					id: this.info.id,
-					oldpwd: '',
-					newpwd: '',
-					doublepwd: ''
+					agentName: '',
+					agentPhone: '',
+					agentRelation: '',
+					agentCard: ''
 				},
 				ruleInline: {
-					oldpwd: [{
+					agentName: [{
 						required: true,
-						validator: validateOldPwd,
-						trigger: "blur",
-						message:"请填写原密码"
+						validator: validateName,
+						trigger: "blur"
 					}],
-					newpwd: [{
+					agentPhone: [{
 						required: true,
-						validator: validateNewPwd,
-						trigger: "blur",
-						message:"请填写新密码"
+						validator: validatePhone,
+						trigger: "blur"
 					}],
-					doublepwd: [{
+					agentRelation: [{
 						required: true,
-						validator: validateDoublePwd,
-						trigger: "blur",
-						message:"请确认新密码"
+						validator: validateRelation,
+						trigger: "blur"
+					}],
+					agentCard: [{
+						required: true,
+						validator: validateCard,
+						trigger: "blur"
 					}]
 				}
 			}

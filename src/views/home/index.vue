@@ -5,7 +5,8 @@
 		<button @click="togglePwd">修改密码</button>
 		<Confirm v-show="showConfirm" v-on:closeme="closeme" v-bind:info="info"></Confirm>
 		<Modal v-show="showModal" v-on:closemodal="closemodal" v-bind:info="info"></Modal>
-		<Pwd v-show="showPwd" v-on:closepwd="closepwd" v-bind:info="info"></Pwd>
+		<!-- <Pwd v-show="showPwd" v-on:closepwd="closepwd" v-bind:info="info"></Pwd> -->
+		<Agent v-show="showPwd" v-on:closepwd="closepwd" v-bind:info="info"></Agent>
 	</div>
 </template>
 
@@ -14,6 +15,7 @@
 	import Confirm from '../../components/Modal/Confirm.vue';
 	import Modal from '../../components/Modal/UpdateUserName.vue';
 	import Pwd from '../../components/Modal/UpdatePwd.vue';
+		import Agent from '../../components/Modal/Agent.vue';
 	export default {
 		name: 'Home',
 		data() {
@@ -31,7 +33,8 @@
 		components: {
 			Confirm,
 			Modal,
-			Pwd
+			Pwd,
+			Agent
 		},
 		methods: {
 			toggleModal: function() {

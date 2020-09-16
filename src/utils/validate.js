@@ -22,3 +22,13 @@ export function validUsername(str) {
 export function validPassword(str) {
   return /^\w{3,16}$/.test(str)
 }
+export function validNum(str) {
+	var reg=/^\.{1,25}$/
+  return reg.test(str)
+}
+export function validPhone(str) {
+  return /^1\d{10}$/.test(str)
+}
+export function validIdCard(str) {
+  return /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/.test(str)
+}
