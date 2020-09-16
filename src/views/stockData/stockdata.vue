@@ -1,5 +1,5 @@
 <template>
-  <div class="app-container">
+  <div class="app-container stock-container">
     <el-form :inline="true" ref="form" :model="form">
       <el-form-item>
         <el-input v-model="form.name"  placeholder="请输入姓名" />
@@ -224,23 +224,17 @@ export default {
 .line{
   text-align: center;
 }
-.el-form-item{
-   .el-button{
-       img{
-           width:120px;
-           height:40px;
-       }
-   } 
-}
+
 .el-date-editor--daterange.el-input__inner{
-    width: 216px;
+  width: 216px;
 }
 .el-input{
-    width:216px;
+  width: 230px;
 }
+
 .pagenationBox{
-    margin-top:60px;
-    text-align: right;
+  margin-top:60px;
+  text-align: right;
 }
 
 .el-table{

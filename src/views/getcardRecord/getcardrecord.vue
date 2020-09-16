@@ -4,7 +4,7 @@
         <div>
             <!-- 身份证信息 -->
             <div class="messageBox">
-                <p class="title">身份证信息</p>
+                <p class="title1">身份证信息</p>
                 <ul>
                     <li>
                         <p>姓名：张三三</p>
@@ -28,7 +28,7 @@
             </div>
             <!-- 存证信息 -->
             <div class="messageBox">
-                <p class="title">存证信息</p>
+                <p class="title1">存证信息</p>
                 <ul>
                     <li>
                         <p>卡块：01</p>
@@ -45,7 +45,7 @@
             </div>
             <!-- 代领人信息 -->
             <div class="messageBox">
-                <p class="title"> 代领人信息</p>
+                <p class="title1"> 代领人信息</p>
                 <ul>
                  <li>
                     <p>姓名：张三三</p>
@@ -70,7 +70,7 @@
                
             </div>
             <div class="messageBox">
-                <p class="title">取证信息</p>
+                <p class="title1">取证信息</p>
                 <div class="oldcard">
                    是否收缴旧证： <el-checkbox size="medium" v-model="checked"></el-checkbox>
                 </div>
@@ -142,7 +142,7 @@ export default {
         margin-bottom: 18px;
          padding: 18px 50px ;
          position: relative;
-        .title{
+        .title1{
             color: #353535;
             font-weight:bold;
             margin-bottom: 20px;
