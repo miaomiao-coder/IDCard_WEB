@@ -3,39 +3,20 @@
 		<div class="modal">
 			<div class="modal-header">
 				<img class="modal-close" src="../../icons/close_icon.png" @click.stop="close" />
-				<img class="modal-icon" src="../../icons/warn_icon.png" />
-				<label>{{info.title}}</label>
+				<img class="modal-icon" src="../../icons/setting_icon.png" />
+				<label>修改用户名</label>
 			</div>
 			<el-form ref="fromInfo" :model="fromInfo" :rules="ruleInline">
 				<div class="modal-body uppwd">
-					<div class="column-item">
-						<label class="left-tip"></label>
-						<div class="right-input">
-							<label>张三</label>
-						</div>
-					</div>
-
-
+					<div class="title">张三</div>
 					<div class="column-item">
 						<label class="left-tip">修改用户名:</label>
-					<!-- 	<el-form-item prop="newname">
-							<span class="svg-container">
-								<svg-icon icon-class="user" />
-							</span>
-							<el-input ref="newname" v-model="fromInfo.username" placeholder="请输入用户名" name="newname" type="text" tabindex="1"
-							 auto-complete="on" />
-						</el-form-item> -->
 						<el-form-item prop="newname">
 							<div class="right-input">
-							<el-input
-							 ref="newname"
-                v-model="fromInfo.newname" 
-                placeholder="请输入修改后的用户名"
-                name="newname"
-                type="text"
-                auto-complete="on"/>
-							<img src="../../icons/user_small.png" />
-						</div>
+								<el-input ref="newname" v-model="fromInfo.newname" placeholder="请输入修改后的用户名" name="newname" type="text"
+								 auto-complete="on" />
+								<img class="leftimg" src="../../icons/user_small.png" />
+							</div>
 						</el-form-item>
 					</div>
 				</div>
@@ -45,7 +26,7 @@
 
 					<el-button type="primary" class="btn-close" @click.stop="close"></el-button>
 					<!-- <Button type="primary" @click.stop="confirm('fromInfo')" class="btn-confirm"></Button> -->
-					<el-button class="btn-confirm"  @click.native.prevent="confirm('fromInfo')"></el-button>
+					<el-button class="btn-confirm" @click.native.prevent="confirm('fromInfo')"></el-button>
 				</div>
 			</el-form>
 		</div>
@@ -67,7 +48,7 @@
 				},
 				title: {
 					type: String,
-					default: '修改密码'
+					default: '修改用户名'
 				},
 				okimg: {
 					default: require('../../icons/ok_icon.png')
@@ -99,6 +80,7 @@
 		methods: {
 			close() {
 				this.$emit("closemodal");
+				this.$refs.fromInfo.resetFields();
 			},
 			confirm(name) {
 				this.$refs[name].validate(valid => {
@@ -166,19 +148,18 @@
 
 	.modal-backdrop .modal-header label {
 		padding-left: 12px;
-		font-size: 24px;
+		font-size: 18px;
 		font-family: Source Han Sans SC;
-		font-weight: 500;
-		line-height: 36px;
-		color: #353535;
+		font-weight: 400;
+		line-height: 27px;
+		color: #FFFFFF;
 		opacity: 1;
 	}
 
 	.modal-backdrop .modal-footer {
-		/* border-top: 1px solid #eee; */
 		justify-content: space-between;
 		display: flex;
-		padding-top: 45px;
+		padding-top: 13px;
 		margin-left: 293px;
 		margin-bottom: 62px;
 		width: 298px;
@@ -186,7 +167,7 @@
 
 	.modal-backdrop .modal-body {
 		position: relative;
-		margin-top: 26px;
+		/* margin-top: 26px; */
 	}
 
 	.modal-backdrop .btn-close,
@@ -207,6 +188,10 @@
 		background-size: cover;
 	}
 
+	.uppwd {
+		padding-top: 56px;
+	}
+
 	.uppwd .left-tip {
 		padding-right: 20px;
 		font-size: 24px;
@@ -221,17 +206,18 @@
 	}
 
 	.column-item {
-		margin-top: 20px;
+		/* margin-top: 20px; */
 		display: flex;
-		height: 40px;
+		height: 72px;
 	}
 
 	.right-input {
 		align-items: center;
 	}
 
-	.right-input label {
-
+	.title {
+		padding-left: 293px;
+		margin-bottom: 20px;
 		font-size: 24px;
 		font-family: Source Han Sans SC;
 		font-weight: 500;
@@ -247,9 +233,10 @@
 		border: 1px solid #707070;
 		opacity: 1;
 		padding-left: 48px;
+		border-radius:0px;
 	}
 
-	.right-input img {
+	.right-input .leftimg {
 		position: relative;
 		height: 24px;
 		width: 22px;
@@ -259,73 +246,80 @@
 		left: 13px;
 	}
 
-.el-form-item__content{
-  line-height: 0;
-}
-.el-checkbox__input.is-checked+.el-checkbox__label {
-    color: #606266;
-}
+	.el-form-item__content {
+		line-height: 0;
+	}
 
-.el-form-item__error {
-    font-size: 14px;
-    left: 0px;
-}
+	.el-checkbox__input.is-checked+.el-checkbox__label {
+		color: #606266;
+	}
+
+	.el-form-item__error {
+		top: 45px;
+		font-size: 14px;
+		left: 0px;
+		font-size: 12px;
+		font-family: Source Han Sans SC;
+		font-weight: 300;
+		line-height: 18px;
+		color: #FF0011;
+		opacity: 1;
+	}
 </style>
 // <style lang="scss" scoped>
-// $bg:#53A2FF;
-// $dark_gray:#889aa4;
-// $light_gray:#eee;
+	// $bg:#53A2FF;
+	// $dark_gray:#889aa4;
+	// $light_gray:#eee;
 
-// .modal {
-//   .input-container{
-//     width: 100%;
-//     height: 585px;
-//     background: url('../../assets/imglogin/box.png') no-repeat left top;
-//     background-size: 100% 100%;
-    
-//     .inputBox{
-//       padding: 48px 0 0 223px;
-//     }
-//   }
+	// .modal {
+	//   .input-container{
+	//     width: 100%;
+	//     height: 585px;
+	//     background: url('../../assets/imglogin/box.png') no-repeat left top;
+	//     background-size: 100% 100%;
 
-//   .svg-container {
-//     color:#499AEF;
-//     vertical-align: middle;
-//     height: 24px;
-//     display: inline-block;
-//     .svg-icon{
-//       width: 20px;
-//       height: 24px;
-//     }
-//   }
-//     .el-form-item {
-//       border: 1px solid rgba(255, 255, 255, 0.1);
-//       background: #fff;
-//       color: #454545;
-//       width: 320px;
-//       padding: 0 15px;
-//     }
-//     .el-input {
-//       display: inline-block;
-//       height: 41px;
-//       width: calc(100% - 22px);
-  
-//       input {
-//         background: transparent;
-//         border: 0px;
-//         // -webkit-appearance: none;
-//         border-radius: 0px;
-//         padding: 0 5px 0 15px;
-//         height: 41px;
-//         caret-color: #000;
-  
-//         // &:-webkit-autofill {
-//         //   box-shadow: 0 0 0px 1000px $bg inset !important;
-//         //   -webkit-text-fill-color: $cursor !important;
-//         // }
-//       }
-//     }
-//   }
-//   </style>
+	//     .inputBox{
+	//       padding: 48px 0 0 223px;
+	//     }
+	//   }
 
+	//   .svg-container {
+	//     color:#499AEF;
+	//     vertical-align: middle;
+	//     height: 24px;
+	//     display: inline-block;
+	//     .svg-icon{
+	//       width: 20px;
+	//       height: 24px;
+	//     }
+	//   }
+	//     .el-form-item {
+	//       border: 1px solid rgba(255, 255, 255, 0.1);
+	//       background: #fff;
+	//       color: #454545;
+	//       width: 320px;
+	//       padding: 0 15px;
+	//     }
+	//     .el-input {
+	//       display: inline-block;
+	//       height: 41px;
+	//       width: calc(100% - 22px);
 
+	//       input {
+	//         background: transparent;
+	//         border: 0px;
+	//         // -webkit-appearance: none;
+	//         border-radius: 0px;
+	//         padding: 0 5px 0 15px;
+	//         height: 41px;
+	//         caret-color: #000;
+
+	//         // &:-webkit-autofill {
+	//         //   box-shadow: 0 0 0px 1000px $bg inset !important;
+	//         //   -webkit-text-fill-color: $cursor !important;
+	//         // }
+	//       }
+	//     }
+	//   }
+	//
+</style>
