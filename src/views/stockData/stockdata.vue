@@ -52,7 +52,7 @@
       <el-form-item>
         <el-button type="primary" @click="onSubmit">查 询 <i class="el-icon-search"></i></el-button>
        
-        <el-button style="color:#409EFF" @click="onCancel">重 置 <i class="el-icon-refresh"/></el-button>
+        <el-button style="color:#409EFF;margin-left:74px;" @click="onCancel">重 置 <i class="el-icon-refresh"/></el-button>
       </el-form-item>
      
     </el-form>
@@ -71,58 +71,59 @@
       border
       fit
       highlight-current-row
+	  :header-cell-style="{background: '#9AD5FF',color:'#353535'}"
     >
      <el-table-column align="center"
       type="selection"
-      width="55">
+      width="55px">
     </el-table-column>
 
-      <el-table-column align="center" label="卡块" width="95">
+      <el-table-column align="center" label="卡块" width="95px">
         <template slot-scope="scope">
           {{ scope.$index }}
         </template>
       </el-table-column>
-      <el-table-column align="center" label="卡位"  width="95">
+      <el-table-column align="center" label="卡位"  width="95px">
         <template slot-scope="scope">
            {{ scope.$index }}
         </template>
       </el-table-column>
-      <el-table-column label="姓名" width="110" align="center">
+      <el-table-column label="姓名" width="110px" align="center">
         <template slot-scope="scope">
           <span>{{ scope.row.author }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="性别" width="110" align="center">
+      <el-table-column label="性别" width="110px" align="center">
         <template slot-scope="scope">
           男
         </template>
       </el-table-column>
-      <el-table-column class-name="status-col" label="民族" width="110" align="center">
+      <el-table-column class-name="status-col" label="民族" width="110px" align="center">
         <template slot-scope="scope">
           汉族
         </template>
       </el-table-column>
-      <el-table-column align="center" prop="created_at" label="身份证" width="200">
+      <el-table-column align="center" prop="created_at" label="身份证" width="200px">
         <template slot-scope="scope">
           451638455989745604x
         </template>
       </el-table-column>
-    <el-table-column class-name="status-col" label="存证方式" width="110" align="center">
+    <el-table-column class-name="status-col" label="存证方式" width="110px" align="center">
         <template slot-scope="scope">
             寄存
         </template>
       </el-table-column>
- <el-table-column class-name="status-col" label="存证人" width="110" align="center">
+ <el-table-column class-name="status-col" label="存证人" width="110px" align="center">
         <template slot-scope="scope">
           匿名
         </template>
       </el-table-column>
-       <el-table-column class-name="status-col" label="存证时间" width="180" align="center">
+       <el-table-column class-name="status-col" label="存证时间" width="180px" align="center">
         <template slot-scope="scope">
           <span>{{ scope.row.display_time }}</span>
         </template>
       </el-table-column>
-      <el-table-column class-name="status-col" label="是否指定代领人" width="110" align="center">
+      <el-table-column class-name="status-col" label="是否指定代领人" width="110px" align="center">
         <template slot-scope="scope">
           是
         </template>
@@ -219,14 +220,22 @@ export default {
   }
 }
 </script>
-
+<style>
+	.el-input,.el-form-item__content,.el-date-editor{
+	  width: 230px;
+	}
+</style>
 <style scoped>
+	.el-form--inline .el-form-item
+	{
+		margin-right:20px;
+	}
 .line{
   text-align: center;
 }
 
 .el-date-editor--daterange.el-input__inner{
-  width: 216px;
+  width: 230px;
 }
 .el-input{
   width: 230px;
@@ -240,5 +249,7 @@ export default {
 .el-table{
     font-size: 12px; 
 }
-
+.el-form{
+	width:750px;
+}
 </style>
