@@ -96,7 +96,7 @@ export const constantRoutes = [
     ]
   },
   {
-    path: '/drawdata',
+    path: '/drawdata/detail',
     component: Layout,
   	hidden: true,
     children: [{
