@@ -52,7 +52,7 @@
       <el-form-item>
         <el-button type="primary" @click="onSubmit">查 询 <i class="el-icon-search"></i></el-button>
        
-        <el-button style="color:#409EFF;margin-left:74px;" @click="onCancel">重 置 <i class="el-icon-refresh"/></el-button>
+        <el-button style="color:#409EFF;margin-left:94px;" @click="onCancel">重 置 <i class="el-icon-refresh"/></el-button>
       </el-form-item>
      
     </el-form>
@@ -204,10 +204,7 @@ export default {
       this.$message('submit!')
     },
     onCancel() {
-      this.$message({
-        message: 'cancel!',
-        type: 'warning'
-      })
+      this.$refs.fromInfo.resetFields();
     },
     fetchData() {
       this.listLoading = true
@@ -227,7 +224,7 @@ export default {
 </script>
 <style>
 	.el-input,.el-form-item__content,.el-date-editor{
-	  width: 230px;
+	  width: 250px;
 	}
 </style>
 <style scoped>
@@ -240,10 +237,10 @@ export default {
 }
 
 .el-date-editor--daterange.el-input__inner{
-  width: 230px;
+  width: 250px;
 }
 .el-input{
-  width: 230px;
+  width: 250px;
 }
 
 .pagenationBox{
@@ -255,6 +252,6 @@ export default {
     font-size: 12px; 
 }
 .el-form{
-	width:750px;
+	width:950px;
 }
 </style>
