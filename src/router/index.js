@@ -84,16 +84,27 @@ export const constantRoutes = [
     }]
   },
   {
-    path: '/table',
+    path: '/drawdata',
     component: Layout,
     children: [
       {
-        path: 'table',
-        name: 'Table',
-        component: () => import('@/views/getcardRecord/getcardrecord'),
+        path: 'list',
+        name: 'list',
+        component: () => import('@/views/drawdata/list'),
         meta: { title: '取证记录', icon: 'el-icon-edit-outline' }
       }
     ]
+  },
+  {
+    path: '/drawdata',
+    component: Layout,
+  	hidden: true,
+    children: [{
+      path: 'detail/:id',
+      name: 'detail',
+      component: () => import('@/views/drawdata/detail'),
+      meta: { title: '库存详情', icon: 'el-icon-s-data' }
+    }]
   },
   {
     path: '/device',
