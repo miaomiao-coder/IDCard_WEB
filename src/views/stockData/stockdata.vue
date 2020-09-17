@@ -168,6 +168,10 @@ export default {
     return {
       form: {
         name: '',
+        idcard:'',
+        savename:'',
+        replacegetname:'',
+        replacegetidcard:'',
         region: '',
         date1: '',
         date2: '',
