@@ -24,7 +24,7 @@
 					<!-- <img class="btn-close" src="../icons/cancel_icon.png" @click.stop="close" />
 					<img class="btn-confirm" v-bind:src="info.okimg" @click.stop="confirm('fromInfo')" /> -->
 
-					<el-button type="primary" class="btn-close" @click.stop="close"></el-button>
+					<el-button type="primary" class="btn-close" @click.stop="Clear"></el-button>
 					<!-- <Button type="primary" @click.stop="confirm('fromInfo')" class="btn-confirm"></Button> -->
 					<el-button class="btn-confirm" @click.native.prevent="confirm('fromInfo')"></el-button>
 				</div>
@@ -80,6 +80,10 @@
 		methods: {
 			close() {
 				this.$emit("closename");
+				this.$refs.fromInfo.resetFields();
+			},
+			Clear()
+			{
 				this.$refs.fromInfo.resetFields();
 			},
 			confirm(name) {

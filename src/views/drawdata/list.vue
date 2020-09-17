@@ -1,14 +1,14 @@
 <template>
 	<div class="app-container stock-container">
-		<el-form :inline="true" ref="form" :model="form">
-			<el-form-item>
-				<el-input v-model="form.name" placeholder="请输入姓名" />
+		<el-form :inline="true" ref="fromInfo" :model="fromInfo">
+			<el-form-item prop="name">
+				<el-input v-model="fromInfo.name" placeholder="请输入姓名" />
 			</el-form-item>
-			<el-form-item>
-				<el-input v-model="form.name" placeholder="请输入身份证号" />
+			<el-form-item prop="idcard">
+				<el-input v-model="fromInfo.idcard" placeholder="请输入身份证号" />
 			</el-form-item>
-			<el-form-item>
-				<el-select v-model="form.region" placeholder="请选择存证人">
+			<el-form-item prop="region">
+				<el-select v-model="fromInfo.region" placeholder="请选择存证人">
 					<el-option label="aa" value="aa" />
 					<el-option label="bb" value="bb" />
 					<el-option label="aaqq" value="aaqq" />
@@ -16,39 +16,50 @@
 				</el-select>
 			</el-form-item>
 
-			<el-form-item>
-				<el-date-picker v-model="form.date1" type="daterange" range-separator="-" start-placeholder="取证开始日期"
+			<el-form-item prop="data1">
+				<el-date-picker v-model="fromInfo.date1" type="daterange" range-separator="-" start-placeholder="取证开始日期"
 				 end-placeholder="结束日期">
 				</el-date-picker>
 			</el-form-item>
 
-			<el-form-item>
-				<el-date-picker v-model="form.date2" type="daterange" range-separator="-" start-placeholder="存证开始日期"
+			<el-form-item prop="data2">
+				<el-date-picker v-model="fromInfo.date2" type="daterange" range-separator="-" start-placeholder="存证开始日期"
 				 end-placeholder="结束日期">
 				</el-date-picker>
 			</el-form-item>
 
-			<el-form-item>
-				<el-select v-model="form.region" placeholder="请选择是否指定代领人">
+			<el-form-item prop="region1">
+				<el-select v-model="fromInfo.region1" placeholder="请选择是否指定代领人">
 					<el-option label="是" value="是" />
 					<el-option label="否" value="否" />
 				</el-select>
 			</el-form-item>
-			<el-form-item>
-				<el-input v-model="form.name" placeholder="请输入代领人姓名" />
+			<el-form-item prop="replacegetname">
+				<el-input v-model="fromInfo.replacegetname" placeholder="请输入代领人姓名" />
 			</el-form-item>
-			<el-form-item>
-				<el-input v-model="form.name" placeholder="请输入代领人身份号" />
+			<el-form-item prop="replacegetidcard">
+				<el-input v-model="fromInfo.replacegetidcard" placeholder="请输入代领人身份号" />
 			</el-form-item>
 
 			<el-form-item>
 				<el-button type="primary" @click="onSubmit">查 询 <i class="el-icon-search"></i></el-button>
 
-				<el-button style="color:#409EFF;margin-left:74px;" @click="onCancel">重 置 <i class="el-icon-refresh" /></el-button>
+				<el-button style="color:#409EFF;margin-left:94px;" @click="onCancel">重 置 <i class="el-icon-refresh" /></el-button>
 			</el-form-item>
 
 		</el-form>
 
+		<el-dropdown class="export-item">
+			<span class="el-dropdown-link">导出记录<i class="el-icon-caret-bottom" /></span>
+			<el-dropdown-menu slot="dropdown">
+				<el-dropdown-item>
+					<div><i class="el-icon-close" />当页</div>
+				</el-dropdown-item>
+				<el-dropdown-item>
+					<div><i class="el-icon-document" />全部</div>
+				</el-dropdown-item>
+			</el-dropdown-menu>
+		</el-dropdown>
 		<div class="btnList">
 			<el-button type="primary"><img src="../../assets/img/plcz.png" /></el-button>
 			<el-button type="primary"><img src="../../assets/img/btn2.png" /></el-button>
@@ -61,16 +72,6 @@
 			<el-table-column align="center" type="selection" width="55px">
 			</el-table-column>
 
-			<el-table-column align="center" label="卡块" width="95px">
-				<template slot-scope="scope">
-					{{ scope.$index }}
-				</template>
-			</el-table-column>
-			<el-table-column align="center" label="卡位" width="95px">
-				<template slot-scope="scope">
-					{{ scope.$index }}
-				</template>
-			</el-table-column>
 			<el-table-column label="姓名" width="110px" align="center">
 				<template slot-scope="scope">
 					<span>{{ scope.row.author }}</span>
@@ -113,14 +114,7 @@
 			</el-table-column>
 			<el-table-column class-name="status-col operation" label="操作" align="center">
 				<template slot-scope="scope">
-					<img src="../../assets/img/btn3.png" /><img src="../../assets/img/btn2.png" />
-					<el-dropdown style="display: inline-block;vertical-align: middle;">
-						<span class="el-dropdown-link">更多<i class="el-icon-caret-bottom" /></span>
-						<el-dropdown-menu slot="dropdown">
-							<el-dropdown-item><i class="el-icon-close" />清除代理人</el-dropdown-item>
-							<el-dropdown-item ><div @click="pagetodetail(scope.row.id)"><i class="el-icon-document" />详情</div></el-dropdown-item>
-						</el-dropdown-menu>
-					</el-dropdown>
+					<div v-on:click="todetail(scope.row.id)"><i class="el-icon-document" />详情</div>
 					<span></span>
 				</template>
 			</el-table-column>
@@ -144,9 +138,14 @@
 	export default {
 		data() {
 			return {
-				form: {
+				fromInfo: {
 					name: '',
+					idcard: '',
+					savename: '',
+					replacegetname: '',
+					replacegetidcard: '',
 					region: '',
+					region1: '',
 					date1: '',
 					date2: '',
 					delivery: false,
@@ -177,10 +176,7 @@
 				this.$message('submit!')
 			},
 			onCancel() {
-				this.$message({
-					message: 'cancel!',
-					type: 'warning'
-				})
+				this.$refs.fromInfo.resetFields();
 			},
 			fetchData() {
 				this.listLoading = true
@@ -196,10 +192,13 @@
 			handleCurrentChange(val) {
 				console.log(`当前页: ${val}`);
 			},
-			pagetodetail(id)
-			{
-				console.log(id);
-				 this.$router.push({name: 'detail',params:{ id:id}});
+			todetail(id) {
+				this.$router.push({
+					name: 'detail',
+					params: {
+						id: id
+					}
+				})
 			}
 		}
 	}
@@ -208,7 +207,13 @@
 	.el-input,
 	.el-form-item__content,
 	.el-date-editor {
-		width: 230px;
+		width: 250px;
+	}
+
+	.export-item {
+		position: absolute;
+		top: 120px;
+		right: 20px
 	}
 </style>
 <style scoped>
@@ -221,11 +226,11 @@
 	}
 
 	.el-date-editor--daterange.el-input__inner {
-		width: 230px;
+		width: 250px;
 	}
 
 	.el-input {
-		width: 230px;
+		width: 250px;
 	}
 
 	.pagenationBox {
@@ -238,6 +243,15 @@
 	}
 
 	.el-form {
-		width: 750px;
+		width: 950px;
+	}
+
+	.el-dropdown-link {
+		color: #409EFF;
+		font-size: 14px;
+	}
+
+	.el-dropdown-menu__item {
+		font-size: 14px;
 	}
 </style>
