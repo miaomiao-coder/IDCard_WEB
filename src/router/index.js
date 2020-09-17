@@ -73,7 +73,7 @@ export const constantRoutes = [
     }]
   },
   {
-    path: '/stockdata',
+    path: '/stockdata/detail',
     component: Layout,
 	 hidden: true,
     children: [{

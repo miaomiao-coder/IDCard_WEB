@@ -104,6 +104,7 @@
 		background-color: #5D5D5D;
 		box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
 		position: fixed;
+		z-index:9999;
 	}
 
 	.banner-top .banner-title {
@@ -132,19 +133,14 @@
 		height: 19px;
 		margin-left: 15px;
 	}
-
+	
 	#app .sidebar-container {
 		top: 53px;
 	}
-
-	#app .main-container {
-		width:96%;
-		position: fixed;
-		top: 53px;
-		left: 0;
-		bottom: 0;
-		overflow: scroll;
+	#app .main-container{
+		padding-top: 53px;
 	}
+	
 </style>
 <style lang="scss" scoped>
 	@import "~@/styles/mixin.scss";
