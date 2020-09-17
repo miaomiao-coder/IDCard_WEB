@@ -1,6 +1,6 @@
 <template>
   <div class="stock-container">
-        <el-link class="back"><i class="el-icon-d-arrow-left"/>返回</el-link>
+        <a href="https://panjiachen.github.io/vue-admin-template/#/example/table" class="back"><i class="el-icon-d-arrow-left"/>返回</a>
         <div>
             <!-- 身份证信息 -->
             <div class="messageBox">

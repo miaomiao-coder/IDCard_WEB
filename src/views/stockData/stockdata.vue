@@ -5,7 +5,7 @@
         <el-input v-model="form.name"  placeholder="请输入姓名" />
       </el-form-item>
        <el-form-item>
-        <el-input v-model="form.name"  placeholder="请输入身份证号" />
+        <el-input v-model="form.idcard"  placeholder="请输入身份证号" />
       </el-form-item>
       <el-form-item >
         <el-select v-model="form.region" placeholder="请选择存证人">
@@ -37,16 +37,16 @@
       </el-form-item>
 
       <el-form-item >
-        <el-select v-model="form.region" placeholder="请选择是否指定代领人">
+        <el-select v-model="form.region1" placeholder="请选择是否指定代领人">
           <el-option label="是" value="是" />
           <el-option label="否" value="否" />
         </el-select>
       </el-form-item>
       <el-form-item>
-        <el-input v-model="form.name"  placeholder="请输入代领人姓名" />
+        <el-input v-model="form.replacegetname"  placeholder="请输入代领人姓名" />
       </el-form-item>
       <el-form-item>
-        <el-input v-model="form.name"  placeholder="请输入代领人身份号" />
+        <el-input v-model="form.replacegetidcard"  placeholder="请输入代领人身份号" />
       </el-form-item>
 
       <el-form-item>
@@ -173,6 +173,7 @@ export default {
         replacegetname:'',
         replacegetidcard:'',
         region: '',
+        region1:'',
         date1: '',
         date2: '',
         delivery: false,
