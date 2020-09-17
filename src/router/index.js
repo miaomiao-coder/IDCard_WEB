@@ -74,6 +74,17 @@ export const constantRoutes = [
     }]
   },
   {
+    path: '/stockdata',
+    component: Layout,
+	 hidden: true,
+    children: [{
+      path: 'detail',
+      name: 'detail',
+      component: () => import('@/views/stockData/detail'),
+      meta: { title: '库存详情', icon: 'el-icon-s-data' }
+    }]
+  },
+  {
     path: '/table',
     component: Layout,
     children: [
@@ -86,13 +97,13 @@ export const constantRoutes = [
     ]
   },
   {
-    path: '/statu',
+    path: '/device',
     component: Layout,
     children: [
       {
-        path: 'statu',
-        name: 'statu',
-        component: () => import('@/views/form/index'),
+        path: 'index',
+        name: 'index',
+        component: () => import('@/views/device/index'),
         meta: { title: '设备状态', icon: 'el-icon-monitor' }
       }
     ]

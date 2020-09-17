@@ -79,7 +79,7 @@
 		},
 		methods: {
 			close() {
-				this.$emit("closemodal");
+				this.$emit("closename");
 				this.$refs.fromInfo.resetFields();
 			},
 			confirm(name) {
