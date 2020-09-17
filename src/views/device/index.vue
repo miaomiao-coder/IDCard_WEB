@@ -1,11 +1,11 @@
 <template>
-	<div class="page">
-		<span>当前设备状态：{{Status==1?'使用中':'离线中'}}</span>
-		<img class="img-status" src="../../icons/reflash_icon.png" />
-		<img class="img-btn"  v-if='Status==1' src="../../icons/stop_icon.png" @click='changestatus()'/>
-		<img class="img-btn"  v-else='' src="../../icons/reflash_icon.png" @click='changestatus()'/>
+		<div class="page">
+			<span>当前设备状态：{{Status==1?'使用中':'离线中'}}</span>
+			<img class="img-status" src="../../icons/reflash_icon.png" />
+			<img class="img-btn" v-if='Status==1' src="../../icons/stop_icon.png" @click='changestatus()' />
+			<img class="img-btn" v-else='' src="../../icons/reflash_icon.png" @click='changestatus()' />
 
-	</div>
+		</div>
 </template>
 
 <script>
@@ -16,9 +16,9 @@
 				Status: 1
 			}
 		},
-		methods:{
-			changestatus:function(){
-				this.Status=!this.Status
+		methods: {
+			changestatus: function() {
+				this.Status = !this.Status
 			}
 		}
 	}
@@ -39,7 +39,7 @@
 
 	.page span {
 		align-items: center;
-		
+
 		font-size: 24px;
 		font-family: Source Han Sans SC;
 		font-weight: bold;
