@@ -118,7 +118,7 @@
 						<span class="el-dropdown-link">更多<i class="el-icon-caret-bottom" /></span>
 						<el-dropdown-menu slot="dropdown">
 							<el-dropdown-item><i class="el-icon-close" />清除代理人</el-dropdown-item>
-							<el-dropdown-item @click="pagetodetail"><i class="el-icon-document" />详情</el-dropdown-item>
+							<el-dropdown-item ><div @click="pagetodetail(scope.row.id)"><i class="el-icon-document" />详情</div></el-dropdown-item>
 						</el-dropdown-menu>
 					</el-dropdown>
 					<span></span>
@@ -196,9 +196,10 @@
 			handleCurrentChange(val) {
 				console.log(`当前页: ${val}`);
 			},
-			pagetodetail()
+			pagetodetail(id)
 			{
-				 this.$router.push({name: '/detail',params:{ id:1}});
+				console.log(id);
+				 this.$router.push({name: 'detail',params:{ id:id}});
 			}
 		}
 	}

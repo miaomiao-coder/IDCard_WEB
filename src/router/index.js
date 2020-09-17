@@ -45,7 +45,6 @@ export const constantRoutes = [
   {
     path: '/',
     component: Layout,
-    redirect: '/dashboard',
     children: [{
       path: 'dashboard',
       name: 'Dashboard',
@@ -78,7 +77,7 @@ export const constantRoutes = [
     component: Layout,
 	 hidden: true,
     children: [{
-      path: 'detail',
+      path: 'detail/:id',
       name: 'detail',
       component: () => import('@/views/stockData/detail'),
       meta: { title: '库存详情', icon: 'el-icon-s-data' }
