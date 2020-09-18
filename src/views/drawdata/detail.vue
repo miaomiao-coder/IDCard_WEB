@@ -1,6 +1,6 @@
 <template>
   <div class="stock-container">
-        <a href="https://panjiachen.github.io/vue-admin-template/#/example/table" class="back"><i class="el-icon-d-arrow-left"/>返回</a>
+        <el-link class="back" v-on:click="back"><i class="el-icon-d-arrow-left"/>返回</el-link>
         <div>
             <!-- 身份证信息 -->
             <div class="messageBox">
@@ -113,6 +113,9 @@ export default {
   created() {
   },
   methods: {
+	  back(){
+		  this.$router.go(-1);
+	  }
   }
 }
 </script>
@@ -215,13 +218,4 @@ export default {
             }
         }
     }
-
-
-
-
-
-
-
-
-
 </style>

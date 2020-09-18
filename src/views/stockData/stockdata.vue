@@ -1,13 +1,13 @@
 <template>
   <div class="app-container stock-container">
     <el-form :inline="true" ref="form" :model="form">
-      <el-form-item>
+      <el-form-item prop="name">
         <el-input v-model="form.name"  placeholder="请输入姓名" />
       </el-form-item>
-       <el-form-item>
+       <el-form-item prop="idcard">
         <el-input v-model="form.idcard"  placeholder="请输入身份证号" />
       </el-form-item>
-      <el-form-item >
+      <el-form-item prop="region">
         <el-select v-model="form.region" placeholder="请选择存证人">
           <el-option label="aa" value="aa" />
           <el-option label="bb" value="bb" />
@@ -16,7 +16,7 @@
         </el-select>
       </el-form-item>
 
-      <el-form-item>
+      <el-form-item prop="date1">
          <el-date-picker
             v-model="form.date1"
             type="daterange"
@@ -26,7 +26,7 @@
         </el-date-picker>
       </el-form-item>
 
-      <el-form-item>
+      <el-form-item prop="date2">
          <el-date-picker
             v-model="form.date2"
             type="daterange"
@@ -36,16 +36,16 @@
         </el-date-picker>
       </el-form-item>
 
-      <el-form-item >
+      <el-form-item prop="region1">
         <el-select v-model="form.region1" placeholder="请选择是否指定代领人">
           <el-option label="是" value="是" />
           <el-option label="否" value="否" />
         </el-select>
       </el-form-item>
-      <el-form-item>
+      <el-form-item prop="replacegetname">
         <el-input v-model="form.replacegetname"  placeholder="请输入代领人姓名" />
       </el-form-item>
-      <el-form-item>
+      <el-form-item prop="replacegetidcard">
         <el-input v-model="form.replacegetidcard"  placeholder="请输入代领人身份号" />
       </el-form-item>
 
@@ -135,7 +135,7 @@
             <span class="el-dropdown-link">更多<i class="el-icon-caret-bottom" /></span>
             <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item><i class="el-icon-close" />清除代理人</el-dropdown-item>
-                <el-dropdown-item><i class="el-icon-document" />详情</el-dropdown-item>
+                <el-dropdown-item><div v-on:click="todetail(scope.row.id)"><i class="el-icon-document" />详情</div></el-dropdown-item>
             </el-dropdown-menu>
         </el-dropdown>
           <span></span>
@@ -204,13 +204,15 @@ export default {
       this.$message('submit!')
     },
     onCancel() {
-      this.$refs.fromInfo.resetFields();
+		console.log("onCancel");
+	  this.$refs.form.resetFields();
     },
     fetchData() {
       this.listLoading = true
       getList().then(response => {
         this.list = response.data.items.splice(1,5)
         this.listLoading = false
+		document.getElementsByClassName('el-pagination__jump')[0].childNodes[0].nodeValue = '跳至'
       })
     },
      handleSizeChange(val) {
@@ -218,7 +220,10 @@ export default {
       },
       handleCurrentChange(val) {
         console.log(`当前页: ${val}`);
-      }
+      },
+	  todetail(id){
+		  this.$router.push({name:'detail',params:{id:id}})
+	  }
   }
 }
 </script>

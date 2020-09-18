@@ -41,10 +41,10 @@
 		},
 		methods: {
 			closeSelf() {
-				this.$emit("closeme");
+				this.$emit("closeme",{id:0});
 			},
 			confirm() {
-
+this.$emit("closeme",{id:1});
 			}
 		}
 	}
