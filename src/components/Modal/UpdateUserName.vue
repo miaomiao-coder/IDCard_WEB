@@ -219,7 +219,7 @@
 		align-items: center;
 	}
 
-	.title {
+	.modal-body .title {
 		padding-left: 293px;
 		margin-bottom: 20px;
 		font-size: 24px;
