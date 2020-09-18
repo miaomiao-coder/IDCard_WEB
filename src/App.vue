@@ -16,5 +16,8 @@ export default {
   box-sizing: border-box;
   list-style: none;
 }
+html,body{
+  min-width: 900px;
+}
 
 </style>
