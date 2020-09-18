@@ -130,7 +130,8 @@
       </el-table-column>
       <el-table-column class-name="status-col operation" label="操作"  align="center">
         <template slot-scope="scope">
-          <img src="../../assets/img/btn3.png" /><img src="../../assets/img/btn2.png" />
+          <img src="../../assets/img/btn3.png" />
+			<i class="el-icon-s-custom" style="color:#409EFF;margin-right: 13px;font-size: 14px;"></i>
           <el-dropdown style="display: inline-block;vertical-align: middle;" >
             <span class="el-dropdown-link">更多<i class="el-icon-caret-bottom" /></span>
             <el-dropdown-menu slot="dropdown">
