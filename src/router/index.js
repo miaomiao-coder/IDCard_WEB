@@ -53,6 +53,7 @@ export const constantRoutes = [
       meta: { title: '库存数据', icon: 'el-icon-s-data' }
     }]
   },
+  
   {
     path: '/stockdata/detail',
     component: Layout,
@@ -71,7 +72,7 @@ export const constantRoutes = [
       {
         path: 'getcardrecord',
         name: 'Getcardrecord',
-        component: () => import('@/views/getcardRecord/getcardrecord'),
+        component: () => import('@/views/drawdata/list'),
         meta: { title: '取证记录', icon: 'el-icon-edit-outline' }
       }
     ]
