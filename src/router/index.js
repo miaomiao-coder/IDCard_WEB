@@ -49,26 +49,6 @@ export const constantRoutes = [
     children: [{
       path: 'dashboard',
       name: 'Dashboard',
-      component: () => import('@/views/dashboard/index'),
-      meta: { title: '测试', icon: 'dashboard', activeMenu: '/dashboard' }
-    }]
-  },
-  {
-    path: '/home',
-    component: Layout,
-    children: [{
-      path: 'home',
-      name: 'home',
-      component: () => import('@/views/home/index'),
-      meta: { title: '首页', icon: 'dashboard' }
-    }]
-  },
-  {
-    path: '/stockdata',
-    component: Layout,
-    children: [{
-      path: 'stockdata',
-      name: 'stockdata',
       component: () => import('@/views/stockData/stockdata'),
       meta: { title: '库存数据', icon: 'el-icon-s-data' }
     }]
@@ -79,18 +59,18 @@ export const constantRoutes = [
 	 hidden: true,
     children: [{
       path: 'detail',
-      name: 'detail',
+      name: 'Detail',
       component: () => import('@/views/stockData/detail'),
       meta: { title: '库存详情', icon: 'el-icon-s-data' }
     }]
   },
   {
-    path: '/table',
+    path: '/getcardrecord',
     component: Layout,
     children: [
       {
-        path: 'table',
-        name: 'Table',
+        path: 'getcardrecord',
+        name: 'Getcardrecord',
         component: () => import('@/views/getcardRecord/getcardrecord'),
         meta: { title: '取证记录', icon: 'el-icon-edit-outline' }
       }
@@ -101,12 +81,32 @@ export const constantRoutes = [
     component: Layout,
     children: [
       {
-        path: 'index',
-        name: 'index',
+        path: 'device',
+        name: 'Device',
         component: () => import('@/views/device/index'),
         meta: { title: '设备状态', icon: 'el-icon-monitor' }
       }
     ]
+  },
+  {
+    path: '/test',
+    component: Layout,
+    children: [{
+      path: 'test',
+      name: 'Test',
+      component: () => import('@/views/dashboard/index'),
+      meta: { title: '测试', icon: 'dashboard' }
+    }]
+  },
+  {
+    path: '/diolage',
+    component: Layout,
+    children: [{
+      path: 'diolage',
+      name: 'Diolage',
+      component: () => import('@/views/home/index'),
+      meta: { title: '弹窗', icon: 'dashboard' }
+    }]
   },
   // {
   //   path: '/example',
