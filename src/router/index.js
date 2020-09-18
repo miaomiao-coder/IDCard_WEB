@@ -90,16 +90,6 @@ export const constantRoutes = [
     ]
   },
   {
-    path: '/test',
-    component: Layout,
-    children: [{
-      path: 'test',
-      name: 'Test',
-      component: () => import('@/views/dashboard/index'),
-      meta: { title: '测试', icon: 'dashboard' }
-    }]
-  },
-  {
     path: '/diolage',
     component: Layout,
     children: [{

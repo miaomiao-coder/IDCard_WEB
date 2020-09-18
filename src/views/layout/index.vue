@@ -1,14 +1,18 @@
 <template>
 	<div :class="classObj" class="app-wrapper">
+		
 		<div class="banner-top">
 			<div class="banner-title">
 				<img src="../../assets/imgbanner/country.png" />
 				<span class="webtip">居民身份证自助取证终端后台</span>
 			</div>
 			<div class="banner-btn">
-				<img src="../../assets/imgbanner/upname.png" @click="closename" />
-				<img src="../../assets/imgbanner/uppwd.png" @click="closepwd" />
-				<img src="../../assets/imgbanner/logout.png" @click="logout" />
+				<div @click="closename"><i class="el-icon-edit"/> 修改用户名</div>
+				<div @click="closepwd"><i class="el-icon-lock"/> 修改密码</div>
+				<div @click="logout"><i class="el-icon-user"/> 退出登录</div>
+				<!-- <img style="width:80.22px;height:18.01px;" src="../../assets/imgbanner/upname.png" @click="closename" />
+				<img style="width:67.63px;height:18.63px;" src="../../assets/imgbanner/uppwd.png" @click="closepwd" />
+				<img style="width:68.02px;height:18.98px;" src="../../assets/imgbanner/logout.png" @click="logout" /> -->
 			</div>
 		</div>
 		<div v-if="device==='mobile'&&sidebar.opened" class="drawer-bg" @click="handleClickOutside" />
@@ -127,7 +131,16 @@
 		width: 36px;
 		height: 37px;
 	}
-
+.banner-btn
+{
+	color:#FFFFFF;
+    display: flex;
+	font-size: 14px;
+}
+.banner-btn div
+{
+	margin-left: 15px;
+}
 	.banner-btn img {
 		width: 68px;
 		height: 19px;
@@ -183,5 +196,8 @@
 
 	.mobile .fixed-header {
 		width: 100%;
+	}
+	.el-icon-setting{
+		font-size: 16px;
 	}
 </style>

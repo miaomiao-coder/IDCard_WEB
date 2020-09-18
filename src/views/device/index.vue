@@ -3,7 +3,7 @@
 			<span class="device-status">当前设备状态：{{Status==1?'使用中':'离线中'}}</span>
 			<img class="img-status" src="../../icons/reflash_icon.png" />
 			<img class="img-btn" v-if='Status==1' src="../../icons/stop_icon.png" @click='changestatus()' />
-			<img class="img-btn" v-else='' src="../../icons/reflash_icon.png" @click='changestatus()' />
+			<img class="img-btn" v-else='' src="../../icons/use.png" @click='changestatus()' />
 <Confirm v-show="showConfirm" v-on:closeme="closeme" v-bind:info="Status==1?stopUserInfo:startUserInfo"></Confirm>
 		</div>
 </template>
