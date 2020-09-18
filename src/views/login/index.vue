@@ -4,7 +4,7 @@
 
       <div class="title-container">
         <img class="gh" src="../../assets/imglogin/gh.png" />
-        <h3 class="title">居民身份证自助取证终端后台</h3>
+        <h3 class="titlelogin">居民身份证自助取证终端后台</h3>
       </div>
 
       <div class="input-container">
@@ -275,7 +275,7 @@ $light_gray:#eee;
     .gh{
       width: 130px;
     }
-    .title {
+    .titlelogin {
       font-family: 'Source Han Sans SC';
       font-size: 42px;
       color: $light_gray;
