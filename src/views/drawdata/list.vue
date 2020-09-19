@@ -60,11 +60,6 @@
 				</el-dropdown-item>
 			</el-dropdown-menu>
 		</el-dropdown>
-		<div class="btnList">
-			<el-button type="primary"><img src="../../assets/img/plcz.png" /></el-button>
-			<el-button type="primary"><img src="../../assets/img/btn2.png" /></el-button>
-			<el-button type="primary"><img src="../../assets/img/btn1.png" /></el-button>
-		</div>
 
 
 		<el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row
@@ -132,6 +127,7 @@
 </template>
 
 <script>
+	import path from 'path'
 	import {
 		getList
 	} from '@/api/table'
@@ -199,6 +195,9 @@
 						id: id
 					}
 				})
+			},
+			resolvePath() {
+			  return path.resolve('/drawdata','detail')
 			}
 		}
 	}

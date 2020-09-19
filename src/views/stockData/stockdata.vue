@@ -51,9 +51,9 @@
 			</el-form>
 
 			<div class="btnList">
-				<el-button type="primary"><img src="../../assets/img/plcz.png" /></el-button>
+				<el-button type="primary" @click="togglecom(batchcardinfo)"><img src="../../assets/img/plcz.png" /></el-button>
 				<el-button type="primary" @click="appointagent(1)"><img src="../../assets/img/btn2.png" /></el-button>
-				<el-button type="primary"><img src="../../assets/img/btn1.png" /></el-button>
+				<el-button type="primary" @click="togglecom(batchclearinfo)"><img src="../../assets/img/btn1.png" /></el-button>
 			</div>
 
 
@@ -143,6 +143,7 @@
 
 		<Confirm v-show="showConfirm" v-on:closeme="closeme" v-bind:info="info"></Confirm>
 		<Agent v-show="showPwd" v-on:closeagent="closeagent" v-bind:info="info"></Agent>
+			<Card v-show="showCard" v-on:closecard="closecard" v-bind:info="cardinfo"></Card>
 	</div>
 </template>
 
@@ -152,6 +153,7 @@
 	} from '@/api/table'
 	import Confirm from '../../components/Modal/Confirm.vue';
 	import Agent from '../../components/Modal/Agent.vue';
+		import Card from '../../components/Modal/Card.vue';
 	export default {
 		data() {
 			return {
@@ -175,16 +177,34 @@
 				currentPage4: 1,
 				showConfirm: false,
 				showPwd: false,
-				info: {
+				showCard: false,
+				cardinfo:{
+					id:0
+				},
+				info:{
+					okimg: require('../../icons/ok_icon.png')
+				},
+				clearinfo: {
 					title: '确定清除代领人？',
 					desp: '是否确定清除所选身份证的代领人信息',
+					okimg: require('../../icons/ok_icon.png')
+				},
+				batchcardinfo: {
+					title: '确认批量出证？',
+					desp: '是否确认将所选身份证批量导出至回收箱',
+					okimg: require('../../icons/ok_icon.png')
+				},
+				batchclearinfo: {
+					title: '确定批量清除代领人？',
+					desp: '是否确定批量清除所选身份证的代领人信息',
 					okimg: require('../../icons/ok_icon.png')
 				}
 			}
 		},
 		components: {
 			Confirm,
-			Agent
+			Agent,
+			Card
 		},
 		filters: {
 			statusFilter(status) {
@@ -223,17 +243,26 @@
 			},
 			todetail(id) {
 				this.$router.push({
-					name: 'detail',
+					name: 'sdetail',
 					params: {
 						id: id
 					}
 				})
 			},
-			printcard(id) {},
+			printcard(id) {
+				this.cardinfo.id=id;
+				this.showCard=!this.showCard
+			},
 			appointagent(id) {
 				this.showPwd = !this.showPwd;
 			},
 			deleteagent(id) {
+				this.showConfirm = !this.showConfirm;
+				this.info=this.clearinfo;
+			},
+			togglecom(ele)
+			{
+				this.info=ele;
 				this.showConfirm = !this.showConfirm;
 			},
 			closeagent: function(evt) {
@@ -248,7 +277,14 @@
 				}
 				this.showConfirm = !this.showConfirm;
 			},
-		}
+			closecard: function(evt) {
+				if (evt.id == 1) {
+					//成功
+				}
+				this.showCard = !this.showCard;
+			},
+		},
+		
 	}
 </script>
 <style>
