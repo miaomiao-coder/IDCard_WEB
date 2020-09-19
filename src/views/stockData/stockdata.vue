@@ -1,263 +1,299 @@
 <template>
-  <div class="app-container stock-container">
-    <el-form :inline="true" ref="form" :model="form">
-      <el-form-item prop="name">
-        <el-input v-model="form.name"  placeholder="请输入姓名" />
-      </el-form-item>
-       <el-form-item prop="idcard">
-        <el-input v-model="form.idcard"  placeholder="请输入身份证号" />
-      </el-form-item>
-      <el-form-item prop="region">
-        <el-select v-model="form.region" placeholder="请选择存证人">
-          <el-option label="aa" value="aa" />
-          <el-option label="bb" value="bb" />
-          <el-option label="aaqq" value="aaqq" />
-          <el-option label="bbee" value="bbee" />
-        </el-select>
-      </el-form-item>
+	<div>
+		<div class="app-container stock-container">
+			<el-form :inline="true" ref="form" :model="form">
+				<el-form-item prop="name">
+					<el-input v-model="form.name" placeholder="请输入姓名" />
+				</el-form-item>
+				<el-form-item prop="idcard">
+					<el-input v-model="form.idcard" placeholder="请输入身份证号" />
+				</el-form-item>
+				<el-form-item prop="region">
+					<el-select v-model="form.region" placeholder="请选择存证人">
+						<el-option label="aa" value="aa" />
+						<el-option label="bb" value="bb" />
+						<el-option label="aaqq" value="aaqq" />
+						<el-option label="bbee" value="bbee" />
+					</el-select>
+				</el-form-item>
 
-      <el-form-item prop="date1">
-         <el-date-picker
-            v-model="form.date1"
-            type="daterange"
-            range-separator="-"
-            start-placeholder="取证开始日期"
-            end-placeholder="结束日期">
-        </el-date-picker>
-      </el-form-item>
+				<el-form-item prop="date1">
+					<el-date-picker v-model="form.date1" type="daterange" range-separator="-" start-placeholder="取证开始日期"
+					 end-placeholder="结束日期">
+					</el-date-picker>
+				</el-form-item>
 
-      <el-form-item prop="date2">
-         <el-date-picker
-            v-model="form.date2"
-            type="daterange"
-            range-separator="-"
-            start-placeholder="存证开始日期"
-            end-placeholder="结束日期">
-        </el-date-picker>
-      </el-form-item>
+				<el-form-item prop="date2">
+					<el-date-picker v-model="form.date2" type="daterange" range-separator="-" start-placeholder="存证开始日期"
+					 end-placeholder="结束日期">
+					</el-date-picker>
+				</el-form-item>
 
-      <el-form-item prop="region1">
-        <el-select v-model="form.region1" placeholder="请选择是否指定代领人">
-          <el-option label="是" value="是" />
-          <el-option label="否" value="否" />
-        </el-select>
-      </el-form-item>
-      <el-form-item prop="replacegetname">
-        <el-input v-model="form.replacegetname"  placeholder="请输入代领人姓名" />
-      </el-form-item>
-      <el-form-item prop="replacegetidcard">
-        <el-input v-model="form.replacegetidcard"  placeholder="请输入代领人身份号" />
-      </el-form-item>
+				<el-form-item prop="region1">
+					<el-select v-model="form.region1" placeholder="请选择是否指定代领人">
+						<el-option label="是" value="是" />
+						<el-option label="否" value="否" />
+					</el-select>
+				</el-form-item>
+				<el-form-item prop="replacegetname">
+					<el-input v-model="form.replacegetname" placeholder="请输入代领人姓名" />
+				</el-form-item>
+				<el-form-item prop="replacegetidcard">
+					<el-input v-model="form.replacegetidcard" placeholder="请输入代领人身份号" />
+				</el-form-item>
 
-      <el-form-item>
-        <el-button type="primary" @click="onSubmit">查 询 <i class="el-icon-search"></i></el-button>
-       
-        <el-button style="color:#409EFF;margin-left:94px;" @click="onCancel">重 置 <i class="el-icon-refresh"/></el-button>
-      </el-form-item>
-     
-    </el-form>
+				<el-form-item>
+					<el-button type="primary" @click="onSubmit">查 询 <i class="el-icon-search"></i></el-button>
 
-    <div class="btnList">
-        <el-button type="primary"><img src="../../assets/img/plcz.png"/></el-button>
-         <el-button type="primary"><img src="../../assets/img/btn2.png"/></el-button>
-          <el-button type="primary"><img src="../../assets/img/btn1.png"/></el-button>
-    </div>
+					<el-button style="color:#409EFF;float:right" @click="onCancel">重 置 <i class="el-icon-refresh" /></el-button>
+				</el-form-item>
+
+			</el-form>
+
+			<div class="btnList">
+				<el-button type="primary"><img src="../../assets/img/plcz.png" /></el-button>
+				<el-button type="primary" @click="appointagent(1)"><img src="../../assets/img/btn2.png" /></el-button>
+				<el-button type="primary"><img src="../../assets/img/btn1.png" /></el-button>
+			</div>
 
 
- <el-table
-      v-loading="listLoading"
-      :data="list"
-      element-loading-text="Loading"
-      border
-      fit
-      highlight-current-row
-	  :header-cell-style="{background: '#9AD5FF',color:'#353535'}"
-    >
-     <el-table-column align="center"
-      type="selection"
-      width="55px">
-    </el-table-column>
+			<el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row
+			 :header-cell-style="{background: '#9AD5FF',color:'#353535'}">
+				<el-table-column align="center" type="selection" width="55px">
+				</el-table-column>
 
-      <el-table-column align="center" label="卡块" width="95px">
-        <template slot-scope="scope">
-          {{ scope.$index }}
-        </template>
-      </el-table-column>
-      <el-table-column align="center" label="卡位"  width="95px">
-        <template slot-scope="scope">
-           {{ scope.$index }}
-        </template>
-      </el-table-column>
-      <el-table-column label="姓名" width="110px" align="center">
-        <template slot-scope="scope">
-          <span>{{ scope.row.author }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="性别" width="110px" align="center">
-        <template slot-scope="scope">
-          男
-        </template>
-      </el-table-column>
-      <el-table-column class-name="status-col" label="民族" width="110px" align="center">
-        <template slot-scope="scope">
-          汉族
-        </template>
-      </el-table-column>
-      <el-table-column align="center" prop="created_at" label="身份证" width="200px">
-        <template slot-scope="scope">
-          451638455989745604x
-        </template>
-      </el-table-column>
-    <el-table-column class-name="status-col" label="存证方式" width="110px" align="center">
-        <template slot-scope="scope">
-            寄存
-        </template>
-      </el-table-column>
- <el-table-column class-name="status-col" label="存证人" width="110px" align="center">
-        <template slot-scope="scope">
-          匿名
-        </template>
-      </el-table-column>
-       <el-table-column class-name="status-col" label="存证时间" width="180px" align="center">
-        <template slot-scope="scope">
-          <span>{{ scope.row.display_time }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column class-name="status-col" label="是否指定代领人" width="110px" align="center">
-        <template slot-scope="scope">
-          是
-        </template>
-      </el-table-column>
-      <el-table-column class-name="status-col operation" label="操作"  align="center">
-        <template slot-scope="scope">
-          <img src="../../assets/img/btn3.png" />
-			<i class="el-icon-s-custom" style="color:#409EFF;margin-right: 13px;font-size: 14px;"></i>
-          <el-dropdown style="display: inline-block;vertical-align: middle;" >
-            <span class="el-dropdown-link">更多<i class="el-icon-caret-bottom" /></span>
-            <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item><i class="el-icon-close" />清除代理人</el-dropdown-item>
-                <el-dropdown-item><div v-on:click="todetail(scope.row.id)"><i class="el-icon-document" />详情</div></el-dropdown-item>
-            </el-dropdown-menu>
-        </el-dropdown>
-          <span></span>
-        </template>
-      </el-table-column>
-    </el-table>
+				<el-table-column align="center" label="卡块" width="95px">
+					<template slot-scope="scope">
+						{{ scope.$index }}
+					</template>
+				</el-table-column>
+				<el-table-column align="center" label="卡位" width="95px">
+					<template slot-scope="scope">
+						{{ scope.$index }}
+					</template>
+				</el-table-column>
+				<el-table-column label="姓名" width="110px" align="center">
+					<template slot-scope="scope">
+						<span>{{ scope.row.author }}</span>
+					</template>
+				</el-table-column>
+				<el-table-column label="性别" width="110px" align="center">
+					<template slot-scope="scope">
+						男
+					</template>
+				</el-table-column>
+				<el-table-column class-name="status-col" label="民族" width="110px" align="center">
+					<template slot-scope="scope">
+						汉族
+					</template>
+				</el-table-column>
+				<el-table-column align="center" prop="created_at" label="身份证" width="200px">
+					<template slot-scope="scope">
+						451638455989745604x
+					</template>
+				</el-table-column>
+				<el-table-column class-name="status-col" label="存证方式" width="110px" align="center">
+					<template slot-scope="scope">
+						寄存
+					</template>
+				</el-table-column>
+				<el-table-column class-name="status-col" label="存证人" width="110px" align="center">
+					<template slot-scope="scope">
+						匿名
+					</template>
+				</el-table-column>
+				<el-table-column class-name="status-col" label="存证时间" width="180px" align="center">
+					<template slot-scope="scope">
+						<span>{{ scope.row.display_time }}</span>
+					</template>
+				</el-table-column>
+				<el-table-column class-name="status-col" label="是否指定代领人" width="110px" align="center">
+					<template slot-scope="scope">
+						是
+					</template>
+				</el-table-column>
+				<el-table-column class-name="status-col operation" label="操作" align="center">
+					<template slot-scope="scope">
+						<el-button type="primary" @click="printcard(scope.row.id)">出证</el-button>
+						<el-button type="primary" @click="appointagent(scope.row.id)">指定代领人</el-button>
+						<el-dropdown style="display: inline-block;vertical-align: middle;">
+							<span class="el-dropdown-link">更多<i class="el-icon-caret-bottom" /></span>
+							<el-dropdown-menu slot="dropdown">
+								<el-dropdown-item>
+									<div @click="deleteagent(scope.row.id)"><i class="el-icon-close" />清除代领人</div>
+								</el-dropdown-item>
+								<el-dropdown-item>
+									<div v-on:click="todetail(scope.row.id)"><i class="el-icon-document" />详情</div>
+								</el-dropdown-item>
+							</el-dropdown-menu>
+						</el-dropdown>
+						<span></span>
+					</template>
+				</el-table-column>
+			</el-table>
 
- <div class="pagenationBox">
-    <el-pagination
-    background
-      @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
-      :current-page="currentPage4"
-      :page-sizes="[10, 20, 30, 60,100]"
-      :page-size="10"
-      layout="prev, pager, next, sizes, jumper"
-      :total="100">
-    </el-pagination>
-  </div>
+			<div class="pagenationBox">
+				<el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage4"
+				 :page-sizes="[10, 20, 30, 60,100]" :page-size="10" layout="prev, pager, next, sizes, jumper" :total="100">
+				</el-pagination>
+			</div>
+
+		</div>
 
 
-
-  </div>
+		<Confirm v-show="showConfirm" v-on:closeme="closeme" v-bind:info="info"></Confirm>
+		<Agent v-show="showPwd" v-on:closeagent="closeagent" v-bind:info="info"></Agent>
+	</div>
 </template>
 
 <script>
-import { getList } from '@/api/table'
-export default {
-  data() {
-    return {
-      form: {
-        name: '',
-        idcard:'',
-        savename:'',
-        replacegetname:'',
-        replacegetidcard:'',
-        region: '',
-        region1:'',
-        date1: '',
-        date2: '',
-        delivery: false,
-        type: [],
-        resource: '',
-        desc: ''
-      },
-      list: null,
-      listLoading: true,
-      currentPage4: 1
-    }
-  },
-   filters: {
-    statusFilter(status) {
-      const statusMap = {
-        published: 'success',
-        draft: 'gray',
-        deleted: 'danger'
-      }
-      return statusMap[status]
-    }
-  },
-  created() {
-    this.fetchData()
-  },
-  methods: {
-    onSubmit() {
-      this.$message('submit!')
-    },
-    onCancel() {
-		console.log("onCancel");
-	  this.$refs.form.resetFields();
-    },
-    fetchData() {
-      this.listLoading = true
-      getList().then(response => {
-        this.list = response.data.items.splice(1,5)
-        this.listLoading = false
-		document.getElementsByClassName('el-pagination__jump')[0].childNodes[0].nodeValue = '跳至'
-      })
-    },
-     handleSizeChange(val) {
-        console.log(`每页 ${val} 条`);
-      },
-      handleCurrentChange(val) {
-        console.log(`当前页: ${val}`);
-      },
-	  todetail(id){
-		  this.$router.push({name:'detail',params:{id:id}})
-	  }
-  }
-}
+	import {
+		getList
+	} from '@/api/table'
+	import Confirm from '../../components/Modal/Confirm.vue';
+	import Agent from '../../components/Modal/Agent.vue';
+	export default {
+		data() {
+			return {
+				form: {
+					name: '',
+					idcard: '',
+					savename: '',
+					replacegetname: '',
+					replacegetidcard: '',
+					region: '',
+					region1: '',
+					date1: '',
+					date2: '',
+					delivery: false,
+					type: [],
+					resource: '',
+					desc: ''
+				},
+				list: null,
+				listLoading: true,
+				currentPage4: 1,
+				showConfirm: false,
+				showPwd: false,
+				info: {
+					title: '确定清除代领人？',
+					desp: '是否确定清除所选身份证的代领人信息',
+					okimg: require('../../icons/ok_icon.png')
+				}
+			}
+		},
+		components: {
+			Confirm,
+			Agent
+		},
+		filters: {
+			statusFilter(status) {
+				const statusMap = {
+					published: 'success',
+					draft: 'gray',
+					deleted: 'danger'
+				}
+				return statusMap[status]
+			}
+		},
+		created() {
+			this.fetchData()
+		},
+		methods: {
+			onSubmit() {
+				this.$message('submit!')
+			},
+			onCancel() {
+				console.log("onCancel");
+				this.$refs.form.resetFields();
+			},
+			fetchData() {
+				this.listLoading = true
+				getList().then(response => {
+					this.list = response.data.items.splice(1, 5)
+					this.listLoading = false
+					document.getElementsByClassName('el-pagination__jump')[0].childNodes[0].nodeValue = '跳至'
+				})
+			},
+			handleSizeChange(val) {
+				console.log(`每页 ${val} 条`);
+			},
+			handleCurrentChange(val) {
+				console.log(`当前页: ${val}`);
+			},
+			todetail(id) {
+				this.$router.push({
+					name: 'detail',
+					params: {
+						id: id
+					}
+				})
+			},
+			printcard(id) {},
+			appointagent(id) {
+				this.showPwd = !this.showPwd;
+			},
+			deleteagent(id) {
+				this.showConfirm = !this.showConfirm;
+			},
+			closeagent: function(evt) {
+				if (evt.id == 1) {
+					//成功
+				}
+				this.showPwd = !this.showPwd;
+			},
+			closeme: function(evt) {
+				if (evt.id == 1) {
+					//成功
+				}
+				this.showConfirm = !this.showConfirm;
+			},
+		}
+	}
 </script>
 <style>
-	.el-input,.el-form-item__content,.el-date-editor{
-	  width: 250px;
+	.el-input,
+	.el-form-item__content,
+	.el-date-editor {
+		width: 250px;
 	}
+
+	.el-button--primary {
+		margin-right: 10px;
+	}
+
+	.el-button--primary span {
+		color: #FFFFFF;
+	}
+
 </style>
 <style scoped>
-	.el-form--inline .el-form-item
-	{
-		margin-right:20px;
+	.el-form--inline .el-form-item {
+		margin-right: 20px;
 	}
-.line{
-  text-align: center;
-}
 
-.el-date-editor--daterange.el-input__inner{
-  width: 250px;
-}
-.el-input{
-  width: 250px;
-}
+	.line {
+		text-align: center;
+	}
 
-.pagenationBox{
-  margin-top:60px;
-  text-align: right;
-}
+	.el-date-editor--daterange.el-input__inner {
+		width: 250px;
+	}
 
-.el-table{
-    font-size: 12px; 
-}
-.el-form{
-	width:950px;
-}
+	.el-input {
+		width: 250px;
+	}
+
+	.pagenationBox {
+		margin-top: 60px;
+		text-align: right;
+	}
+
+	.el-table {
+		font-size: 12px;
+	}
+
+	.el-form {
+		width: 950px;
+	}
 </style>

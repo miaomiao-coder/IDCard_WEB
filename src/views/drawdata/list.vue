@@ -44,7 +44,7 @@
 			<el-form-item>
 				<el-button type="primary" @click="onSubmit">查 询 <i class="el-icon-search"></i></el-button>
 
-				<el-button style="color:#409EFF;margin-left:94px;" @click="onCancel">重 置 <i class="el-icon-refresh" /></el-button>
+				<el-button style="color:#409EFF;float:right" @click="onCancel">重 置 <i class="el-icon-refresh" /></el-button>
 			</el-form-item>
 
 		</el-form>
@@ -254,4 +254,5 @@
 	.el-dropdown-menu__item {
 		font-size: 14px;
 	}
+	
 </style>

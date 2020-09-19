@@ -12,8 +12,9 @@
 						<label class="left-tip">原密码:</label>
 						<el-form-item prop="oldpwd">
 							<div class="right-input">
-								<el-input ref="oldpwd" v-model="fromInfo.oldpwd" placeholder="请输入原密码" name="oldpwd" type="password" auto-complete="on" />
-								<img class="rightimg" src="../../icons/clearinput_icon.png" @click="clear('oldpwd')"/>
+								<el-input ref="oldpwd" v-model="fromInfo.oldpwd" placeholder="请输入原密码" name="oldpwd" type="password"
+								 auto-complete="on" />
+								<img class="rightimg" src="../../icons/clearinput_icon.png" @click="clear('oldpwd')" />
 							</div>
 						</el-form-item>
 					</div>
@@ -21,8 +22,9 @@
 						<label class="left-tip">新密码:</label>
 						<el-form-item prop="newpwd">
 							<div class="right-input">
-								<el-input ref="newpwd" v-model="fromInfo.newpwd" placeholder="请输入新密码" name="newpwd" type="password" auto-complete="on" />
-								<img class="rightimg" src="../../icons/clearinput_icon.png"  @click="clear('newpwd')"/>
+								<el-input ref="newpwd" v-model="fromInfo.newpwd" placeholder="请输入新密码" name="newpwd" type="password"
+								 auto-complete="on" />
+								<img class="rightimg" src="../../icons/clearinput_icon.png" @click="clear('newpwd')" />
 							</div>
 						</el-form-item>
 					</div>
@@ -30,8 +32,9 @@
 						<label class="left-tip">确认新密码:</label>
 						<el-form-item prop="doublepwd">
 							<div class="right-input">
-								<el-input ref="doublepwd" v-model="fromInfo.doublepwd" placeholder="请确认新密码" name="doublepwd" type="password" auto-complete="on" />
-								<img class="rightimg" src="../../icons/clearinput_icon.png"  @click="clear('doublepwd')"/>
+								<el-input ref="doublepwd" v-model="fromInfo.doublepwd" placeholder="请确认新密码" name="doublepwd" type="password"
+								 auto-complete="on" />
+								<img class="rightimg" src="../../icons/clearinput_icon.png" @click="clear('doublepwd')" />
 							</div>
 						</el-form-item>
 					</div>
@@ -51,7 +54,10 @@
 </template>
 
 <script>
-	import {validUsername,validPassword} from '@/utils/validate'
+	import {
+		validUsername,
+		validPassword
+	} from '@/utils/validate'
 	export default {
 		name: 'UpdatePwd',
 		props: {
@@ -67,23 +73,23 @@
 		},
 		data() {
 			const validateOldPwd = (rule, value, callback) => {
-				if (value.length<3||value.length>16) {
+				if (value.length < 3 || value.length > 16) {
 					callback(new Error('原密码错误：必须3-16位'))
 				} else {
 					callback()
 				}
 			}
 			const validateNewPwd = (rule, value, callback) => {
-				
+
 				this.fromInfo.doublepwd = ""
-				if (value.length<3||value.length>16) {
+				if (value.length < 3 || value.length > 16) {
 					callback(new Error('密码错误：必须3-16位'))
 				} else {
 					callback()
 				}
 			}
 			const validateDoublePwd = (rule, value, callback) => {
-				if (value.length<3||value.length>16) {
+				if (value.length < 3 || value.length > 16) {
 					callback(new Error('密码错误：必须3-16位'))
 				} else if (value != this.fromInfo.newpwd) {
 					callback(new Error('与新输入的密码不匹配'))
@@ -103,26 +109,28 @@
 						required: true,
 						validator: validateOldPwd,
 						trigger: "blur",
-						message:"请填写原密码"
+						message: "请填写原密码"
 					}],
 					newpwd: [{
 						required: true,
 						validator: validateNewPwd,
 						trigger: "blur",
-						message:"请填写新密码"
+						message: "请填写新密码"
 					}],
 					doublepwd: [{
 						required: true,
 						validator: validateDoublePwd,
 						trigger: "blur",
-						message:"请确认新密码"
+						message: "请确认新密码"
 					}]
 				}
 			}
 		},
 		methods: {
 			close() {
-				this.$emit("closepwd");
+				this.$emit("closepwd", {
+					id: 0
+				});
 				this.$refs.fromInfo.resetFields();
 			},
 			confirm(name) {
@@ -130,47 +138,57 @@
 					if (valid) {
 						console.log('验证成功');
 						this.$refs.fromInfo.resetFields(); //提交后清空表单信息
+						this.$emit("closepwd", {
+							id: 1
+						});
 					} else {
-						
+
 						console.log('验证失败');
 						// this.$refs.fromInfo.resetFields(); //提交后清空表单信息
 						return false;
 					}
 				});
-			}
-			,clear(name)
-			{
-				this.fromInfo[name]="";
+			},
+			clear(name) {
+				this.fromInfo[name] = "";
 			}
 		}
 	}
 </script>
 
 <style>
-.uppwd .pwd .left-tip
-{
-	font-size: 16px;
-	font-family: Source Han Sans SC;
-	font-weight: 400;
-	line-height: 24px;
-	color: #353535;
-	opacity: 1;
-	padding-top: 8px;
-	width: 233px;
-}
-.pwd .right-input input{
-	width:363px;
-	padding-left:25px;
-}
-.rightimg{
-	position: relative;
-	height: 22px;
-	width: 22px;
-	top: -32px;
-	left: 333px;
-}
-.about{
-	height: 40px;
-}
+	.uppwd .pwd .left-tip {
+		font-size: 16px;
+		font-family: Source Han Sans SC;
+		font-weight: 400;
+		line-height: 24px;
+		color: #353535;
+		opacity: 1;
+		padding-top: 8px;
+		width: 233px;
+		
+	}
 
+	.right-input input {
+		width: 363px;
+		padding-left: 25px;
+		background: #FFFFFF;
+		border: 1px solid #707070;
+		opacity: 1;
+		border-radius:0px;
+		
+		height: 40px;
+	}
+
+	.rightimg {
+		position: relative;
+		height: 22px;
+		width: 22px;
+		top: -32px;
+		left: 333px;
+	}
+
+	.about {
+		height: 40px;
+	}
 </style>
