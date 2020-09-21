@@ -78,11 +78,11 @@
     } 
  }
  .el-table{
-  .el-button{
-    width: auto !important;
-    height: 24px !important;
-    padding:0 10px !important;
- } 
+    .el-button{
+      width: auto !important;
+      height: 24px !important;
+      padding:0 10px !important;
+  } 
  }
  .el-input__inner{
    font-size: 14px !important;
@@ -133,11 +133,11 @@
 
 
 .is-underline::after{
+  content:'';
+  width:0;
   border: none;
   background-color: transparent;
 }
-
-
 
 
 

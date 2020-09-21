@@ -109,8 +109,8 @@
 			</el-table-column>
 			<el-table-column class-name="status-col operation" label="操作" width="180px" align="center">
 				<template slot-scope="scope">
-					<!-- <div v-on:click="todetail(scope.row.id)"><i class="el-icon-document" />详情</div> -->
-					<router-link to="/drawdata/detail"><i class="el-icon-document" />详情</router-link>
+					<div v-on:click="todetail(scope.row.id)"><i class="el-icon-document" />详情</div>
+					<!-- <router-link to="/drawdata/detail"><i class="el-icon-document" />详情</router-link> -->
 					<span></span>
 				</template>
 			</el-table-column>
