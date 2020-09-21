@@ -189,6 +189,7 @@
 				console.log(`当前页: ${val}`);
 			},
 			todetail(id) {
+				 // this.$store.dispatch("app/toggleSideBar");
 				this.$router.push({
 					name: 'detail',
 					params: {
