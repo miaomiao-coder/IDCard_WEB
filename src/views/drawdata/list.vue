@@ -64,20 +64,20 @@
 
 		<el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row
 		 :header-cell-style="{background: '#9AD5FF',color:'#353535'}">
-			<el-table-column align="center" type="selection" width="55px">
+			<el-table-column align="center" type="selection" >
 			</el-table-column>
 
-			<el-table-column label="姓名" width="110px" align="center">
+			<el-table-column label="姓名"  align="center">
 				<template slot-scope="scope">
 					<span>{{ scope.row.author }}</span>
 				</template>
 			</el-table-column>
-			<el-table-column label="性别" width="110px" align="center">
+			<el-table-column label="性别"  align="center">
 				<template slot-scope="scope">
 					男
 				</template>
 			</el-table-column>
-			<el-table-column class-name="status-col" label="民族" width="110px" align="center">
+			<el-table-column class-name="status-col" label="民族"  align="center">
 				<template slot-scope="scope">
 					汉族
 				</template>
@@ -87,12 +87,12 @@
 					451638455989745604x
 				</template>
 			</el-table-column>
-			<el-table-column class-name="status-col" label="存证方式" width="110px" align="center">
+			<el-table-column class-name="status-col" label="存证方式"  align="center">
 				<template slot-scope="scope">
 					寄存
 				</template>
 			</el-table-column>
-			<el-table-column class-name="status-col" label="存证人" width="110px" align="center">
+			<el-table-column class-name="status-col" label="存证人" align="center">
 				<template slot-scope="scope">
 					匿名
 				</template>
@@ -102,14 +102,15 @@
 					<span>{{ scope.row.display_time }}</span>
 				</template>
 			</el-table-column>
-			<el-table-column class-name="status-col" label="是否指定代领人" width="110px" align="center">
+			<el-table-column class-name="status-col" label="是否指定代领人"  align="center">
 				<template slot-scope="scope">
 					是
 				</template>
 			</el-table-column>
-			<el-table-column class-name="status-col operation" label="操作" align="center">
+			<el-table-column class-name="status-col operation" label="操作" width="180px" align="center">
 				<template slot-scope="scope">
-					<div v-on:click="todetail(scope.row.id)"><i class="el-icon-document" />详情</div>
+					<!-- <div v-on:click="todetail(scope.row.id)"><i class="el-icon-document" />详情</div> -->
+					<router-link to="/drawdata/detail"><i class="el-icon-document" />详情</router-link>
 					<span></span>
 				</template>
 			</el-table-column>
