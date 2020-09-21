@@ -50,7 +50,7 @@ export const constantRoutes = [{
 				name: 'stockdata',
 				component: () => import('@/views/stockData/stockdata'),
 				meta: {
-					title: '库存数据1',
+					title: '库存数据',
 					icon: 'el-icon-s-data',
 					activeMenu:'stockdata'
 				}
