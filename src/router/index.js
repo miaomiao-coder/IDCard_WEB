@@ -51,16 +51,18 @@ export const constantRoutes = [{
 				component: () => import('@/views/stockData/stockdata'),
 				meta: {
 					title: '库存数据',
-					icon: 'el-icon-s-data'
+					icon: 'el-icon-s-data',
+					activeMenu:'stockdata'
 				}
 			},
 			{
-				path: 'detail/:id(\\d+)',
+				path: 'stockdata/detail/:id(\\d+)',
 				name: 'sdetail',
 				component: () => import('@/views/stockData/detail'),
 				meta: {
 					title: '库存详情',
-					icon: 'el-icon-s-data'
+					icon: 'el-icon-s-data',
+					activeMenu:'stockdata'
 				},
 				hidden: true
 			}
@@ -75,7 +77,8 @@ export const constantRoutes = [{
 			component: () => import('@/views/drawdata/list'),
 			meta: {
 				title: '取证记录',
-				icon: 'el-icon-edit-outline'
+				icon: 'el-icon-edit-outline',
+				activeMenu:'drawdata'
 			}
 		},
 		{
@@ -84,7 +87,8 @@ export const constantRoutes = [{
 			component: () => import('@/views/drawdata/detail'),
 			meta: {
 				title: '取证详情',
-				icon: 'el-icon-edit-outline'
+				icon: 'el-icon-edit-outline',
+				activeMenu:'drawdata'
 			},
 			hidden: true
 		}]
