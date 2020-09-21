@@ -51,9 +51,12 @@
 			</el-form>
 
 			<div class="btnList">
-				<el-button type="primary" @click="togglecom(batchcardinfo)"><img src="../../assets/img/plcz.png" /></el-button>
+				<!-- <el-button type="primary" @click="togglecom(batchcardinfo)"><img src="../../assets/img/plcz.png" /></el-button>
 				<el-button type="primary" @click="appointagent(1)"><img src="../../assets/img/btn2.png" /></el-button>
-				<el-button type="primary" @click="togglecom(batchclearinfo)"><img src="../../assets/img/btn1.png" /></el-button>
+				<el-button type="primary" @click="togglecom(batchclearinfo)"><img src="../../assets/img/btn1.png" /></el-button> -->
+				<el-button type="primary" @click="togglecom(batchcardinfo)"><i class="el-icon-folder-checked"></i>批量出证</el-button>
+				<el-button type="primary" @click="appointagent(1)"><i class="el-icon-circle-plus-outline"></i>指定代理人</el-button>
+				<el-button type="primary" @click="togglecom(batchclearinfo)"><i class="el-icon-remove-outline"></i>清除代理人</el-button>
 			</div>
 
 

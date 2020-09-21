@@ -22,7 +22,7 @@
                         <img class="touxiang" src="../../assets/img/6.jpg" alt="">
                     </li>
                     <li>
-                        <el-button style="margin-top:40px" type="primary"><img src="../../assets/img/btn3.png" alt=""></el-button>
+                        <el-button style="margin-top:40px" type="primary">出证</el-button>
                     </li>
                 </ul>
             </div>
@@ -62,9 +62,9 @@
                    
                 </li>
                 <li>
-
-                    <el-button type="primary"><img src="../../assets/img/btn2.png" alt=""></el-button>
-                    <el-button type="primary"><img src="../../assets/img/btn1.png" alt=""></el-button>
+                    <el-button type="primary"><i class="el-icon-circle-plus-outline"></i>指定代理人</el-button>
+				    <el-button type="primary" ><i class="el-icon-remove-outline"></i>清除代理人</el-button>
+                 
                 </li>
                 </ul>
                
