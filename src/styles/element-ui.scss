@@ -77,6 +77,13 @@
        padding:0  !important;
     } 
  }
+ .el-table{
+  .el-button{
+    width: auto !important;
+    height: 24px !important;
+    padding:0 10px !important;
+ } 
+ }
  .el-input__inner{
    font-size: 14px !important;
     height: 24px !important;
@@ -129,7 +136,6 @@
   border: none;
   background-color: transparent;
 }
-
 
 
 
