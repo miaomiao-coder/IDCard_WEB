@@ -53,18 +53,6 @@ export const constantRoutes = [
       meta: { title: '库存数据', icon: 'el-icon-s-data' }
     }]
   },
-  
-  {
-    path: '/stockdata/detail',
-    component: Layout,
-	 hidden: true,
-    children: [{
-      path: 'detail',
-      name: 'Detail',
-      component: () => import('@/views/stockData/detail'),
-      meta: { title: '库存详情', icon: 'el-icon-s-data' }
-    }]
-  },
   {
     path: '/getcardrecord',
     component: Layout,
