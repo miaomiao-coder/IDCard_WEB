@@ -244,7 +244,7 @@ export default {
         excel.export_json_to_excel({
           header: tHeader,
           data,
-          filename: "tabletest",
+          filename: "存证记录（当前页）",
         });
       });
 	},
@@ -267,7 +267,7 @@ export default {
         excel.export_json_to_excel({
           header: tHeader,
           data,
-          filename: "tabletest1",
+          filename: "存证记录（全部）",
         });
       });
 	},
