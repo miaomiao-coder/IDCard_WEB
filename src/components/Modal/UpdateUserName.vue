@@ -79,7 +79,7 @@
 		},
 		methods: {
 			close() {
-				this.$emit("closename");
+				this.$emit("closename",{id:0});
 				this.$refs.fromInfo.resetFields();
 			},
 			Clear()
@@ -91,6 +91,7 @@
 					if (valid) {
 						console.log('验证成功');
 						this.$refs.fromInfo.resetFields(); //提交后清空表单信息
+						this.$emit("closename",{id:1});
 					} else {
 						console.log('验证失败');
 						// this.$refs.fromInfo.resetFields(); //提交后清空表单信息
@@ -102,7 +103,15 @@
 	}
 </script>
 
-<style>
+<style >
+	.right-input input {
+		width: 298px;
+		height: 40px;
+		background: #FFFFFF;
+		border: 1px solid #707070;
+		opacity: 1;
+		border-radius:0px;
+	}
 	.modal-backdrop {
 		position: fixed;
 		top: 0;
@@ -113,6 +122,9 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
+		z-index:10000;
+		width: 100%;
+		margin: 0 auto;
 	}
 
 	.modal-backdrop .modal {
@@ -230,15 +242,7 @@
 		opacity: 1;
 	}
 
-	.right-input input {
-		width: 298px;
-		height: 40px;
-		background: #FFFFFF;
-		border: 1px solid #707070;
-		opacity: 1;
-		padding-left: 48px;
-		border-radius:0px;
-	}
+
 
 	.right-input .leftimg {
 		position: relative;
@@ -247,7 +251,7 @@
 		/* top: 5px;
 		left: -285px; */
 		top: -32px;
-		left: 13px;
+		left: 3px;
 	}
 
 	.el-form-item__content {
@@ -271,3 +275,9 @@
 	}
 </style>
 
+<style scoped>
+.el-input .el-input__inner
+{
+	padding-left:48px;
+}
+</style>

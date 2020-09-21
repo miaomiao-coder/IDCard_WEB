@@ -44,7 +44,7 @@
 			<el-form-item>
 				<el-button type="primary" @click="onSubmit">查 询 <i class="el-icon-search"></i></el-button>
 
-				<el-button style="color:#409EFF;margin-left:94px;" @click="onCancel">重 置 <i class="el-icon-refresh" /></el-button>
+				<el-button style="color:#409EFF;float:right" @click="onCancel">重 置 <i class="el-icon-refresh" /></el-button>
 			</el-form-item>
 
 		</el-form>
@@ -60,11 +60,6 @@
 				</el-dropdown-item>
 			</el-dropdown-menu>
 		</el-dropdown>
-		<div class="btnList">
-			<el-button type="primary"><img src="../../assets/img/plcz.png" /></el-button>
-			<el-button type="primary"><img src="../../assets/img/btn2.png" /></el-button>
-			<el-button type="primary"><img src="../../assets/img/btn1.png" /></el-button>
-		</div>
 
 
 		<el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row
@@ -132,6 +127,7 @@
 </template>
 
 <script>
+	import path from 'path'
 	import {
 		getList
 	} from '@/api/table'
@@ -199,6 +195,9 @@
 						id: id
 					}
 				})
+			},
+			resolvePath() {
+			  return path.resolve('/drawdata','detail')
 			}
 		}
 	}
@@ -254,4 +253,5 @@
 	.el-dropdown-menu__item {
 		font-size: 14px;
 	}
+	
 </style>

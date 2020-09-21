@@ -135,7 +135,7 @@
 		},
 		methods: {
 			close() {
-				this.$emit("closepwd");
+				this.$emit("closeagent",{id:0});
 				this.$refs.fromInfo.resetFields();
 			},
 			confirm(name) {
@@ -143,6 +143,7 @@
 					if (valid) {
 						console.log('验证成功');
 						this.$refs.fromInfo.resetFields(); //提交后清空表单信息
+						this.$emit("closeagent",{id:1});
 					} else {
 						
 						console.log('验证失败');
@@ -159,7 +160,7 @@
 	}
 </script>
 
-<style>
+<style scoped>
 .uppwd .pwd .left-tip
 {
 	font-size: 16px;
@@ -185,5 +186,16 @@
 .about{
 	height: 40px;
 }
+.stock-container .el-input__inner {
+    width: 298px;
+    height: 40px;
+    background: #FFFFFF;
+    border: 1px solid #707070;
+    opacity: 1;
+    padding-left: 48px;
+    border-radius: 0px;
+}
+</style>
+<style>
 
 </style>

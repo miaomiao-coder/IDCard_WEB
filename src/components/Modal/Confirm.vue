@@ -61,6 +61,9 @@ this.$emit("closeme",{id:1});
 		display: flex;
 		justify-content: center;
 		align-items: center;
+		width: 100%;
+		margin: 0 auto;
+		z-index: 10000;
 	}
 
 	.cmodal-backdrop .modal {

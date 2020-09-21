@@ -74,16 +74,6 @@
                 <div class="oldcard">
                    是否收缴旧证： <el-checkbox size="medium" v-model="checked"></el-checkbox>
                 </div>
-                <ol>
-                    <li><p>业务受理号：19640407</p></li>
-                    <li><p>领取方式：代领</p></li>
-                    <li><p>取证时间：2020-03-03 11:11:11</p></li>
-                </ol>
-                <div class="imglist">
-                    <img src="../../assets/img/6.jpg" alt="领证人 照片" />
-                    <img src="../../assets/img/6.jpg" alt="第一枚指纹 核验图像" />
-                    <img src="../../assets/img/6.jpg" alt="第二枚指纹 核验图像" />
-                </div>
             </div>
         </div>
   </div>
