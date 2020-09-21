@@ -44,7 +44,7 @@ export const constantRoutes = [{
 	{
 		path: '/',
 		component: Layout,
-		redirect: '/stockData',
+		redirect: '/stockdata',
 		children: [{
 				path: 'stockdata',
 				name: 'stockdata',
@@ -55,7 +55,7 @@ export const constantRoutes = [{
 				}
 			},
 			{
-				path: 'detail',
+				path: 'detail/:id(\\d+)',
 				name: 'sdetail',
 				component: () => import('@/views/stockData/detail'),
 				meta: {
@@ -79,7 +79,7 @@ export const constantRoutes = [{
 			}
 		},
 		{
-			path: 'detail',
+			path: 'detail/:id(\\d+)',
 			name: 'detail',
 			component: () => import('@/views/drawdata/detail'),
 			meta: {
