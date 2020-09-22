@@ -82,6 +82,7 @@
     </el-dropdown>
 
     <el-table
+     ref="multipleTable"
       v-loading="listLoading"
       :data="list"
       element-loading-text="Loading"
@@ -89,6 +90,7 @@
       fit
       highlight-current-row
       :header-cell-style="{background: '#9AD5FF',color:'#353535'}"
+      @selection-change="handleSelectionChange"
     >
       <el-table-column align="center" type="selection"></el-table-column>
 
@@ -143,24 +145,27 @@
     </el-table>
 
     <div class="pagenationBox">
-      <el-pagination
-        background
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        :current-page="currentPage4"
-        :page-sizes="[10, 20, 30, 60,100]"
-        :page-size="10"
-        layout="prev, pager, next, sizes, jumper"
-        :total="100"
-      ></el-pagination>
+     
+       <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="fetchData" />
     </div>
+      
+  
+  
   </div>
 </template>
 
 <script>
+ // <pagination background 
+      //   layout="prev, pager, next,sizes, jumper" 
+      //   :total="total"
+      //   :page.sync="listQuery.page"
+      //   :limit.sync="listQuery.limit"
+      //   @pagination="fetchData" />
 import path from "path";
 import { getList } from "@/api/table";
+import Pagination from '@/components/Pagination'
 export default {
+  components: { Pagination },
   data() {
     return {
       fromInfo: {
@@ -177,11 +182,18 @@ export default {
         type: [],
         resource: "",
         desc: "",
-	  },
-	  list: null,
-	  listAll: null,
-      listLoading: true,
-	  currentPage4: 1,
+    },
+    // 分页
+    listQuery: {
+      page: 1,
+      limit: 10,
+    },
+    total: 0,
+    multipleSelection: [],
+    list: null,
+    listAll: null,
+    listLoading: true,
+	  currentPage: 1,
 	  downloadLoading: false,
     };
   },
@@ -206,21 +218,22 @@ export default {
       this.$refs.fromInfo.resetFields();
     },
     fetchData() {
+      var $this =this
       this.listLoading = true;
-      getList().then((response) => {
-		this.listAll = response.data.items;
-        this.list = response.data.items.splice(1, 5);
+      getList().then((response) => {   // 此处没有传参，取到所有的数据
+        console.log(response)
+        this.listAll = response.data.items;
+        // this.list = response.data.items
+
+        // 数组截取
+        const start = ($this.listQuery.page-1)*($this.listQuery.limit);
+        const end =($this.listQuery.page)*($this.listQuery.limit);
+        this.list = response.data.items.slice(start, end)
+
+        this.total = response.data.total
         this.listLoading = false;
-        document.getElementsByClassName(
-          "el-pagination__jump"
-        )[0].childNodes[0].nodeValue = "跳至";
+        document.getElementsByClassName( "el-pagination__jump")[0].childNodes[0].nodeValue = "跳至";
       });
-    },
-    handleSizeChange(val) {
-      console.log(`每页 ${val} 条`);
-    },
-    handleCurrentChange(val) {
-      console.log(`当前页: ${val}`);
     },
     todetail(id) {
       // this.$store.dispatch("app/toggleSideBar");
@@ -234,19 +247,27 @@ export default {
     resolvePath() {
       return path.resolve("/drawdata", "detail");
     },
+    handleSelectionChange(val) {
+      this.multipleSelection = val
+    },
     // 导出功能--当前页
     handleDownloadCurrentPage() {
-		const LIST = this.list
-      import("@/vendor/export2Excel").then((excel) => {
-        const tHeader = ["姓名", "性别", "民族", "身份证" , "存证人", "存证时间", "是否指定代领人", "性别" ];
-        const filterVal = ["title","pageviews","status","id","author","author","display_time","author"];
-        const data = this.formatJson(filterVal, LIST)
-        excel.export_json_to_excel({
-          header: tHeader,
-          data,
-          filename: "存证记录（当前页）",
+        var LIST=null;
+        import("@/vendor/export2Excel").then((excel) => {
+          const tHeader = ["姓名", "性别", "民族", "身份证" , "存证人", "存证时间", "是否指定代领人", "性别" ];
+          const filterVal = ["title","pageviews","status","id","author","author","display_time","author"];
+          if (this.multipleSelection.length){  //导出当前页被选中的
+              LIST = this.multipleSelection
+          }else{                               // 导出当前页所有的
+              LIST = this.list
+          }
+          const data = this.formatJson(filterVal, LIST)
+          excel.export_json_to_excel({
+            header: tHeader,
+            data,
+            filename: "存证记录（当前页）",
+          });
         });
-      });
 	},
 	 formatJson(filterVal,listObj) {
       return listObj.map(v => filterVal.map(j => {
@@ -259,18 +280,18 @@ export default {
 	},
 	// 导出功能--全部
     handleDownloadAll() {
-		const LIST = this.listAll
+		var LIST1 = this.listAll
 		import("@/vendor/export2Excel").then((excel) => {
         const tHeader = ["姓名", "性别", "民族", "身份证" ,"存证方式" , "存证人","存证时间", "是否指定代领人" ];
         const filterVal = ["title","pageviews","status","id","author","author","display_time","author"];
-        const data = this.formatJson(filterVal, LIST)
+        const data = this.formatJson(filterVal, LIST1)
         excel.export_json_to_excel({
           header: tHeader,
           data,
           filename: "存证记录（全部）",
         });
       });
-	},
+  },
   },
 };
 </script>
