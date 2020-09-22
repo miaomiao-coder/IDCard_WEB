@@ -1,14 +1,14 @@
 <template>
   <div class="app-container stock-container">
-    <el-form :inline="true" ref="fromInfo" :model="fromInfo">
+    <el-form :inline="true" ref="listQuery" :model="listQuery">
       <el-form-item prop="name">
-        <el-input v-model="fromInfo.name" placeholder="请输入姓名" />
+        <el-input v-model="listQuery.name" placeholder="请输入姓名" @keyup.enter.native="handleFilter"/>
       </el-form-item>
       <el-form-item prop="idcard">
-        <el-input v-model="fromInfo.idcard" placeholder="请输入身份证号" />
+        <el-input v-model="listQuery.idcard" placeholder="请输入身份证号" @keyup.enter.native="handleFilter"/>
       </el-form-item>
       <el-form-item prop="region">
-        <el-select v-model="fromInfo.region" placeholder="请选择存证人">
+        <el-select v-model="listQuery.region" placeholder="请选择存证人"  @change="handleFilter">
           <el-option label="aa" value="aa" />
           <el-option label="bb" value="bb" />
           <el-option label="aaqq" value="aaqq" />
@@ -17,8 +17,8 @@
       </el-form-item>
 
       <el-form-item prop="data1">
-        <el-date-picker
-          v-model="fromInfo.date1"
+        <el-date-picker @keyup.enter.native="handleFilter"
+          v-model="listQuery.date1"
           type="daterange"
           range-separator="-"
           start-placeholder="取证开始日期"
@@ -27,8 +27,8 @@
       </el-form-item>
 
       <el-form-item prop="data2">
-        <el-date-picker
-          v-model="fromInfo.date2"
+        <el-date-picker @keyup.enter.native="handleFilter"
+          v-model="listQuery.date2"
           type="daterange"
           range-separator="-"
           start-placeholder="存证开始日期"
@@ -37,16 +37,16 @@
       </el-form-item>
 
       <el-form-item prop="region1">
-        <el-select v-model="fromInfo.region1" placeholder="请选择是否指定代领人">
+        <el-select v-model="listQuery.region1" placeholder="请选择是否指定代领人" @change="handleFilter">
           <el-option label="是" value="是" />
           <el-option label="否" value="否" />
         </el-select>
       </el-form-item>
       <el-form-item prop="replacegetname">
-        <el-input v-model="fromInfo.replacegetname" placeholder="请输入代领人姓名" />
+        <el-input v-model="listQuery.replacegetname" placeholder="请输入代领人姓名" @keyup.enter.native="handleFilter"/>
       </el-form-item>
       <el-form-item prop="replacegetidcard">
-        <el-input v-model="fromInfo.replacegetidcard" placeholder="请输入代领人身份号" />
+        <el-input v-model="listQuery.replacegetidcard" placeholder="请输入代领人身份号" @keyup.enter.native="handleFilter"/>
       </el-form-item>
 
       <el-form-item>
@@ -169,15 +169,6 @@ export default {
   data() {
     return {
       fromInfo: {
-        name: "",
-        idcard: "",
-        savename: "",
-        replacegetname: "",
-        replacegetidcard: "",
-        region: "",
-        region1: "",
-        date1: "",
-        date2: "",
         delivery: false,
         type: [],
         resource: "",
@@ -187,6 +178,17 @@ export default {
     listQuery: {
       page: 1,
       limit: 10,
+      name:null,
+      idcard:null,
+      name: "",
+      idcard: "",
+      savename: "",
+      replacegetname: "",
+      replacegetidcard: "",
+      region: "",
+      region1: "",
+      date1: "",
+      date2: "",
     },
     total: 0,
     multipleSelection: [],
@@ -212,10 +214,18 @@ export default {
   },
   methods: {
     onSubmit() {
-      this.$message("submit!");
+      this.$message({
+        offset: 100,
+        message: 'submit',
+        type: 'success'
+      });
     },
     onCancel() {
-      this.$refs.fromInfo.resetFields();
+      this.$refs.listQuery.resetFields();
+    },
+    handleFilter() {
+      this.listQuery.page = 1
+      this.fetchData()
     },
     fetchData() {
       var $this =this
