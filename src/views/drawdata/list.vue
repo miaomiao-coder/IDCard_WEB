@@ -70,12 +70,12 @@
       <el-dropdown-menu slot="dropdown">
         <el-dropdown-item >
           <div @click="handleDownloadCurrentPage">
-            <i class="el-icon-close" />当页
+            <i class="el-icon-close" />当页选中
           </div>
         </el-dropdown-item>
         <el-dropdown-item >
           <div @click="handleDownloadAll">
-            <i class="el-icon-document" />全部
+            <i class="el-icon-document" />当页全部
           </div>
         </el-dropdown-item>
       </el-dropdown-menu>
