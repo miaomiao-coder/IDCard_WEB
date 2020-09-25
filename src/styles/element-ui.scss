@@ -78,12 +78,32 @@
     } 
  }
  .el-table{
-  .el-button{
-    width: auto !important;
-    height: 24px !important;
-    padding:0 10px !important;
- } 
+    .el-button{
+      width: auto !important;
+      height: 24px !important;
+      padding:0 10px !important;
+  } 
  }
+ .messageBox{
+  .el-button{
+    width: 110px !important;
+    padding: 0 !important;
+    height: 32px !important;
+    i{
+      margin-right: 5px;
+    }
+  }
+ }
+ .btnList{
+  margin:20px 0 10px;
+  .el-button{
+    padding: 0 10px !important;
+    height: 32px !important;
+    i{
+      margin-right: 5px;
+    }
+  }
+}
  .el-input__inner{
    font-size: 14px !important;
     height: 24px !important;
@@ -105,23 +125,12 @@
 
 }
 
-.btnList{
-    margin:20px 0 10px;
-    .el-button{
-      padding: 0 !important;
-      line-height: 0 !important;
-        img{
-            width: 100px !important;
-            height:32px !important;
-        }
-    }
-}
 .operation{
   img{
       height: 20px;
       margin: 0 5px;
       display: inline-block;
-    vertical-align: middle;
+      vertical-align: middle;
   }
   span{
       color: #409EFF;
@@ -133,14 +142,11 @@
 
 
 .is-underline::after{
+  content:'';
+  width:0;
   border: none;
   background-color: transparent;
 }
-
-
-
-
-
 
 
 

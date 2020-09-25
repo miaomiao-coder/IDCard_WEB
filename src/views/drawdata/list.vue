@@ -1,259 +1,359 @@
 <template>
-	<div class="app-container stock-container">
-		<el-form :inline="true" ref="fromInfo" :model="fromInfo">
-			<el-form-item prop="name">
-				<el-input v-model="fromInfo.name" placeholder="请输入姓名" />
-			</el-form-item>
-			<el-form-item prop="idcard">
-				<el-input v-model="fromInfo.idcard" placeholder="请输入身份证号" />
-			</el-form-item>
-			<el-form-item prop="region">
-				<el-select v-model="fromInfo.region" placeholder="请选择存证人">
-					<el-option label="aa" value="aa" />
-					<el-option label="bb" value="bb" />
-					<el-option label="aaqq" value="aaqq" />
-					<el-option label="bbee" value="bbee" />
-				</el-select>
-			</el-form-item>
+  <div class="app-container stock-container">
+    <el-form :inline="true" ref="listQuery" :model="listQuery">
+      <el-form-item prop="name">
+        <el-input v-model="listQuery.name" placeholder="请输入姓名" @keyup.enter.native="handleFilter"/>
+      </el-form-item>
+      <el-form-item prop="idcard">
+        <el-input v-model="listQuery.idcard" placeholder="请输入身份证号" @keyup.enter.native="handleFilter"/>
+      </el-form-item>
+      <el-form-item prop="region">
+        <el-select v-model="listQuery.region" placeholder="请选择存证人"  @change="handleFilter">
+          <el-option label="aa" value="aa" />
+          <el-option label="bb" value="bb" />
+          <el-option label="aaqq" value="aaqq" />
+          <el-option label="bbee" value="bbee" />
+        </el-select>
+      </el-form-item>
 
-			<el-form-item prop="data1">
-				<el-date-picker v-model="fromInfo.date1" type="daterange" range-separator="-" start-placeholder="取证开始日期"
-				 end-placeholder="结束日期">
-				</el-date-picker>
-			</el-form-item>
+      <el-form-item prop="data1">
+        <el-date-picker @keyup.enter.native="handleFilter"
+          v-model="listQuery.date1"
+          type="daterange"
+          range-separator="-"
+          start-placeholder="取证开始日期"
+          end-placeholder="结束日期"
+        ></el-date-picker>
+      </el-form-item>
 
-			<el-form-item prop="data2">
-				<el-date-picker v-model="fromInfo.date2" type="daterange" range-separator="-" start-placeholder="存证开始日期"
-				 end-placeholder="结束日期">
-				</el-date-picker>
-			</el-form-item>
+      <el-form-item prop="data2">
+        <el-date-picker @keyup.enter.native="handleFilter"
+          v-model="listQuery.date2"
+          type="daterange"
+          range-separator="-"
+          start-placeholder="存证开始日期"
+          end-placeholder="结束日期"
+        ></el-date-picker>
+      </el-form-item>
 
-			<el-form-item prop="region1">
-				<el-select v-model="fromInfo.region1" placeholder="请选择是否指定代领人">
-					<el-option label="是" value="是" />
-					<el-option label="否" value="否" />
-				</el-select>
-			</el-form-item>
-			<el-form-item prop="replacegetname">
-				<el-input v-model="fromInfo.replacegetname" placeholder="请输入代领人姓名" />
-			</el-form-item>
-			<el-form-item prop="replacegetidcard">
-				<el-input v-model="fromInfo.replacegetidcard" placeholder="请输入代领人身份号" />
-			</el-form-item>
+      <el-form-item prop="region1">
+        <el-select v-model="listQuery.region1" placeholder="请选择是否指定代领人" @change="handleFilter">
+          <el-option label="是" value="是" />
+          <el-option label="否" value="否" />
+        </el-select>
+      </el-form-item>
+      <el-form-item prop="replacegetname">
+        <el-input v-model="listQuery.replacegetname" placeholder="请输入代领人姓名" @keyup.enter.native="handleFilter"/>
+      </el-form-item>
+      <el-form-item prop="replacegetidcard">
+        <el-input v-model="listQuery.replacegetidcard" placeholder="请输入代领人身份号" @keyup.enter.native="handleFilter"/>
+      </el-form-item>
 
-			<el-form-item>
-				<el-button type="primary" @click="onSubmit">查 询 <i class="el-icon-search"></i></el-button>
+      <el-form-item>
+        <el-button type="primary" @click="onSubmit">
+          查 询
+          <i class="el-icon-search"></i>
+        </el-button>
 
-				<el-button style="color:#409EFF;float:right" @click="onCancel">重 置 <i class="el-icon-refresh" /></el-button>
-			</el-form-item>
+        <el-button style="color:#409EFF;float:right" @click="onCancel">
+          重 置
+          <i class="el-icon-refresh" />
+        </el-button>
+      </el-form-item>
+    </el-form>
 
-		</el-form>
+    <el-dropdown class="export-item">
+      <span class="el-dropdown-link">
+        导出记录
+        <i class="el-icon-caret-bottom" />
+      </span>
+      <el-dropdown-menu slot="dropdown">
+        <el-dropdown-item >
+          <div @click="handleDownloadCurrentPage">
+            <i class="el-icon-close" />当页选中
+          </div>
+        </el-dropdown-item>
+        <el-dropdown-item >
+          <div @click="handleDownloadAll">
+            <i class="el-icon-document" />当页全部
+          </div>
+        </el-dropdown-item>
+      </el-dropdown-menu>
+    </el-dropdown>
 
-		<el-dropdown class="export-item">
-			<span class="el-dropdown-link">导出记录<i class="el-icon-caret-bottom" /></span>
-			<el-dropdown-menu slot="dropdown">
-				<el-dropdown-item>
-					<div><i class="el-icon-close" />当页</div>
-				</el-dropdown-item>
-				<el-dropdown-item>
-					<div><i class="el-icon-document" />全部</div>
-				</el-dropdown-item>
-			</el-dropdown-menu>
-		</el-dropdown>
+    <el-table
+     ref="multipleTable"
+      v-loading="listLoading"
+      :data="list"
+      element-loading-text="Loading"
+      border
+      fit
+      highlight-current-row
+      :header-cell-style="{background: '#9AD5FF',color:'#353535'}"
+      @selection-change="handleSelectionChange"
+    >
+      <el-table-column align="center" type="selection"></el-table-column>
 
+      <el-table-column label="姓名" align="center">
+        <template slot-scope="scope">
+          <span>{{ scope.row.title }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="性别" align="center">
+        <template slot-scope="scope">
+		 <span>{{ scope.row.pageviews }}</span>
+		</template>
+      </el-table-column>
+      <el-table-column class-name="status-col" label="民族" align="center">
+        <template slot-scope="scope">
+		<span>{{ scope.row.status }}</span>
+		</template>
+      </el-table-column>
+      <el-table-column align="center" prop="created_at" label="身份证" width="200px">
+        <template slot-scope="scope">
+			<span>{{ scope.row.id }}</span>
+		</template>
+      </el-table-column>
+      <el-table-column class-name="status-col" label="存证方式" align="center">
+        <template slot-scope="scope">
+			<span>{{ scope.row.author }}</span>
+		</template>
+      </el-table-column>
+      <el-table-column class-name="status-col" label="存证人" align="center">
+        <template slot-scope="scope">
+			<span>{{ scope.row.author }}</span>
+		</template>
+      </el-table-column>
+      <el-table-column class-name="status-col" label="存证时间" width="180px" align="center">
+        <template slot-scope="scope">
+          <span>{{ scope.row.display_time }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column class-name="status-col" label="是否指定代领人" align="center">
+        <template slot-scope="scope">
+			<span>{{ scope.row.author }}</span>
+		</template>
+      </el-table-column>
+      <el-table-column class-name="status-col operation" label="操作" width="180px" align="center">
+        <template slot-scope="scope">
+          <div v-on:click="todetail(scope.row.id)">
+            <i class="el-icon-document" />详情
+          </div>
+          <span></span>
+        </template>
+      </el-table-column>
+    </el-table>
 
-		<el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row
-		 :header-cell-style="{background: '#9AD5FF',color:'#353535'}">
-			<el-table-column align="center" type="selection" >
-			</el-table-column>
-
-			<el-table-column label="姓名"  align="center">
-				<template slot-scope="scope">
-					<span>{{ scope.row.author }}</span>
-				</template>
-			</el-table-column>
-			<el-table-column label="性别"  align="center">
-				<template slot-scope="scope">
-					男
-				</template>
-			</el-table-column>
-			<el-table-column class-name="status-col" label="民族"  align="center">
-				<template slot-scope="scope">
-					汉族
-				</template>
-			</el-table-column>
-			<el-table-column align="center" prop="created_at" label="身份证" width="200px">
-				<template slot-scope="scope">
-					451638455989745604x
-				</template>
-			</el-table-column>
-			<el-table-column class-name="status-col" label="存证方式"  align="center">
-				<template slot-scope="scope">
-					寄存
-				</template>
-			</el-table-column>
-			<el-table-column class-name="status-col" label="存证人" align="center">
-				<template slot-scope="scope">
-					匿名
-				</template>
-			</el-table-column>
-			<el-table-column class-name="status-col" label="存证时间" width="180px" align="center">
-				<template slot-scope="scope">
-					<span>{{ scope.row.display_time }}</span>
-				</template>
-			</el-table-column>
-			<el-table-column class-name="status-col" label="是否指定代领人"  align="center">
-				<template slot-scope="scope">
-					是
-				</template>
-			</el-table-column>
-			<el-table-column class-name="status-col operation" label="操作" width="180px" align="center">
-				<template slot-scope="scope">
-					<!-- <div v-on:click="todetail(scope.row.id)"><i class="el-icon-document" />详情</div> -->
-					<router-link to="/drawdata/detail"><i class="el-icon-document" />详情</router-link>
-					<span></span>
-				</template>
-			</el-table-column>
-		</el-table>
-
-		<div class="pagenationBox">
-			<el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage4"
-			 :page-sizes="[10, 20, 30, 60,100]" :page-size="10" layout="prev, pager, next, sizes, jumper" :total="100">
-			</el-pagination>
-		</div>
-
-
-
-	</div>
+    <div class="pagenationBox">
+     
+       <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="fetchData" />
+    </div>
+      
+  
+  
+  </div>
 </template>
 
 <script>
-	import path from 'path'
-	import {
-		getList
-	} from '@/api/table'
-	export default {
-		data() {
-			return {
-				fromInfo: {
-					name: '',
-					idcard: '',
-					savename: '',
-					replacegetname: '',
-					replacegetidcard: '',
-					region: '',
-					region1: '',
-					date1: '',
-					date2: '',
-					delivery: false,
-					type: [],
-					resource: '',
-					desc: ''
-				},
-				list: null,
-				listLoading: true,
-				currentPage4: 1
-			}
-		},
-		filters: {
-			statusFilter(status) {
-				const statusMap = {
-					published: 'success',
-					draft: 'gray',
-					deleted: 'danger'
-				}
-				return statusMap[status]
-			}
-		},
-		created() {
-			this.fetchData()
-		},
-		methods: {
-			onSubmit() {
-				this.$message('submit!')
-			},
-			onCancel() {
-				this.$refs.fromInfo.resetFields();
-			},
-			fetchData() {
-				this.listLoading = true
-				getList().then(response => {
-					this.list = response.data.items.splice(1, 5)
-					this.listLoading = false
-					document.getElementsByClassName('el-pagination__jump')[0].childNodes[0].nodeValue = '跳至'
-				})
-			},
-			handleSizeChange(val) {
-				console.log(`每页 ${val} 条`);
-			},
-			handleCurrentChange(val) {
-				console.log(`当前页: ${val}`);
-			},
-			todetail(id) {
-				 // this.$store.dispatch("app/toggleSideBar");
-				this.$router.push({
-					name: 'detail',
-					params: {
-						id: id
-					}
-				})
-			},
-			resolvePath() {
-			  return path.resolve('/drawdata','detail')
-			}
-		}
-	}
+ // <pagination background 
+      //   layout="prev, pager, next,sizes, jumper" 
+      //   :total="total"
+      //   :page.sync="listQuery.page"
+      //   :limit.sync="listQuery.limit"
+      //   @pagination="fetchData" />
+import path from "path";
+import { getList } from "@/api/table";
+import Pagination from '@/components/Pagination'
+export default {
+  components: { Pagination },
+  data() {
+    return {
+      fromInfo: {
+        delivery: false,
+        type: [],
+        resource: "",
+        desc: "",
+    },
+    // 分页
+    listQuery: {
+      page: 1,
+      limit: 10,
+      name:null,
+      idcard:null,
+      name: "",
+      idcard: "",
+      savename: "",
+      replacegetname: "",
+      replacegetidcard: "",
+      region: "",
+      region1: "",
+      date1: "",
+      date2: "",
+    },
+    total: 0,
+    multipleSelection: [],
+    list: null,
+    listAll: null,
+    listLoading: true,
+	  currentPage: 1,
+	  downloadLoading: false,
+    };
+  },
+  filters: {
+    statusFilter(status) {
+      const statusMap = {
+        published: "success",
+        draft: "gray",
+        deleted: "danger",
+      };
+      return statusMap[status];
+    },
+  },
+  created() {
+    this.fetchData();
+  },
+  methods: {
+    onSubmit() {
+      this.$message({
+        offset: 100,
+        message: 'submit',
+        type: 'success'
+      });
+    },
+    onCancel() {
+      this.$refs.listQuery.resetFields();
+    },
+    handleFilter() {
+      this.listQuery.page = 1
+      this.fetchData()
+    },
+    fetchData() {
+      var $this =this
+      this.listLoading = true;
+      getList().then((response) => {   // 此处没有传参，取到所有的数据
+        console.log(response)
+        this.listAll = response.data.items;
+        // this.list = response.data.items
+
+        // 数组截取
+        const start = ($this.listQuery.page-1)*($this.listQuery.limit);
+        const end =($this.listQuery.page)*($this.listQuery.limit);
+        this.list = response.data.items.slice(start, end)
+
+        this.total = response.data.total
+        this.listLoading = false;
+        document.getElementsByClassName( "el-pagination__jump")[0].childNodes[0].nodeValue = "跳至";
+      });
+    },
+    todetail(id) {
+      // this.$store.dispatch("app/toggleSideBar");
+      this.$router.push({
+        name: "detail",
+        params: {
+          id: id,
+        },
+      });
+    },
+    resolvePath() {
+      return path.resolve("/drawdata", "detail");
+    },
+    handleSelectionChange(val) {
+      this.multipleSelection = val
+    },
+    // 导出功能--当前页
+    handleDownloadCurrentPage() {
+        var LIST=null;
+        import("@/vendor/export2Excel").then((excel) => {
+          const tHeader = ["姓名", "性别", "民族", "身份证" , "存证人", "存证时间", "是否指定代领人", "性别" ];
+          const filterVal = ["title","pageviews","status","id","author","author","display_time","author"];
+          if (this.multipleSelection.length){  //导出当前页被选中的
+              LIST = this.multipleSelection
+          }else{                               // 导出当前页所有的
+              LIST = this.list
+          }
+          const data = this.formatJson(filterVal, LIST)
+          excel.export_json_to_excel({
+            header: tHeader,
+            data,
+            filename: "存证记录（当前页）",
+          });
+        });
+	},
+	 formatJson(filterVal,listObj) {
+      return listObj.map(v => filterVal.map(j => {
+        if (j === 'timestamp') {
+          return parseTime(v[j])
+        } else {
+          return v[j]
+        }
+      }))
+	},
+	// 导出功能--全部
+    handleDownloadAll() {
+		var LIST1 = this.listAll
+		import("@/vendor/export2Excel").then((excel) => {
+        const tHeader = ["姓名", "性别", "民族", "身份证" ,"存证方式" , "存证人","存证时间", "是否指定代领人" ];
+        const filterVal = ["title","pageviews","status","id","author","author","display_time","author"];
+        const data = this.formatJson(filterVal, LIST1)
+        excel.export_json_to_excel({
+          header: tHeader,
+          data,
+          filename: "存证记录（全部）",
+        });
+      });
+  },
+  },
+};
 </script>
 <style>
-	.el-input,
-	.el-form-item__content,
-	.el-date-editor {
-		width: 250px;
-	}
+.el-input,
+.el-form-item__content,
+.el-date-editor {
+  width: 250px;
+}
 
-	.export-item {
-		position: absolute;
-		top: 120px;
-		right: 20px
-	}
+.export-item {
+  position: absolute;
+  top: 120px;
+  right: 20px;
+}
 </style>
 <style scoped>
-	.el-form--inline .el-form-item {
-		margin-right: 20px;
-	}
+.el-form--inline .el-form-item {
+  margin-right: 20px;
+}
 
-	.line {
-		text-align: center;
-	}
+.line {
+  text-align: center;
+}
 
-	.el-date-editor--daterange.el-input__inner {
-		width: 250px;
-	}
+.el-date-editor--daterange.el-input__inner {
+  width: 250px;
+}
 
-	.el-input {
-		width: 250px;
-	}
+.el-input {
+  width: 250px;
+}
 
-	.pagenationBox {
-		margin-top: 60px;
-		text-align: right;
-	}
+.pagenationBox {
+  margin-top: 60px;
+  text-align: right;
+}
 
-	.el-table {
-		font-size: 12px;
-	}
+.el-table {
+  font-size: 12px;
+}
 
-	.el-form {
-		width: 950px;
-	}
+.el-form {
+  width: 950px;
+}
 
-	.el-dropdown-link {
-		color: #409EFF;
-		font-size: 14px;
-	}
+.el-dropdown-link {
+  color: #409eff;
+  font-size: 14px;
+}
 
-	.el-dropdown-menu__item {
-		font-size: 14px;
-	}
-	
+.el-dropdown-menu__item {
+  font-size: 14px;
+}
 </style>
