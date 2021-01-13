@@ -271,7 +271,9 @@ export default {
           }else{                               // 导出当前页所有的
               LIST = this.list
           }
+		  console.log("LIST",LIST);
           const data = this.formatJson(filterVal, LIST)
+		  console.log("data",data)
           excel.export_json_to_excel({
             header: tHeader,
             data,
